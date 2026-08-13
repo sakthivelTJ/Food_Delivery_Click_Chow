@@ -6,12 +6,9 @@ import java.sql.SQLException;
 
 public class DBconnection {
 
-    // ==============================
-    // DATABASE URL
-    // ==============================
     public static String getUrl() {
 
-        // Railway MYSQL_URL
+        // Railway MySQL URL
         String mysqlUrl = System.getenv("MYSQL_URL");
 
         if (mysqlUrl != null && !mysqlUrl.trim().isEmpty()) {
@@ -23,89 +20,58 @@ public class DBconnection {
             return mysqlUrl;
         }
 
-        // Railway individual MySQL variables
-        String host = System.getenv("DB_HOST");
+        // Railway MySQL variables
+        String host = System.getenv("MYSQLHOST");
         String port = System.getenv("MYSQLPORT");
         String database = System.getenv("MYSQL_DATABASE");
 
-        if (host != null && !host.trim().isEmpty()) {
-
-            if (port == null || port.trim().isEmpty()) {
-                port = "3306";
-            }
-
-            if (database == null || database.trim().isEmpty()) {
-                database = "dao";
-            }
-
-            return "jdbc:mysql://" + host + ":" + port + "/" + database
-                    + "?useSSL=false"
-                    + "&allowPublicKeyRetrieval=true"
-                    + "&serverTimezone=UTC";
+        if (host == null || host.trim().isEmpty()) {
+            System.err.println("ERROR: MYSQLHOST is missing!");
+            return null;
         }
 
-        // Optional custom database URL
-        String customUrl = System.getenv("DB_URL");
-
-        if (customUrl != null && !customUrl.trim().isEmpty()) {
-            return customUrl;
+        if (port == null || port.trim().isEmpty()) {
+            port = "3306";
         }
 
-        // Local development fallback
-        return "jdbc:mysql://localhost:3306/dao"
+        if (database == null || database.trim().isEmpty()) {
+            System.err.println("ERROR: MYSQL_DATABASE is missing!");
+            return null;
+        }
+
+        return "jdbc:mysql://" + host + ":" + port + "/" + database
                 + "?useSSL=false"
                 + "&allowPublicKeyRetrieval=true"
                 + "&serverTimezone=UTC";
     }
 
 
-    // ==============================
-    // DATABASE USERNAME
-    // ==============================
     public static String getUser() {
 
-        String mysqlUser = System.getenv("MYSQLUSER");
+        String user = System.getenv("MYSQLUSER");
 
-        if (mysqlUser != null && !mysqlUser.trim().isEmpty()) {
-            return mysqlUser;
+        if (user == null || user.trim().isEmpty()) {
+            System.err.println("ERROR: MYSQLUSER is missing!");
+            return null;
         }
 
-        String customUser = System.getenv("DB_USER");
-
-        if (customUser != null && !customUser.trim().isEmpty()) {
-            return customUser;
-        }
-
-        // Local development
-        return "root";
+        return user;
     }
 
 
-    // ==============================
-    // DATABASE PASSWORD
-    // ==============================
     public static String getPassword() {
 
-        String mysqlPassword = System.getenv("MYSQLPASSWORD");
+        String password = System.getenv("MYSQLPASSWORD");
 
-        if (mysqlPassword != null && !mysqlPassword.trim().isEmpty()) {
-            return mysqlPassword;
+        if (password == null || password.trim().isEmpty()) {
+            System.err.println("ERROR: MYSQLPASSWORD is missing!");
+            return null;
         }
 
-        String customPassword = System.getenv("DB_PASSWORD");
-
-        if (customPassword != null && !customPassword.trim().isEmpty()) {
-            return customPassword;
-        }
-
-        // Local development
-        return "Lucifer.t.j7";
+        return password;
     }
 
 
-    // ==============================
-    // CREATE DATABASE CONNECTION
-    // ==============================
     public static Connection getConnection() {
 
         try {
@@ -116,16 +82,23 @@ public class DBconnection {
             String user = getUser();
             String password = getPassword();
 
+            if (url == null || user == null || password == null) {
+                System.err.println("ERROR: Railway MySQL configuration is incomplete.");
+                return null;
+            }
+
             System.out.println("========================================");
-            System.out.println("Database Connection Information");
+            System.out.println("Connecting to Railway MySQL...");
             System.out.println("URL  : " + url);
-            System.out.println("User : " + user);
+            System.out.println("USER : " + user);
             System.out.println("========================================");
 
             Connection connection =
                     DriverManager.getConnection(url, user, password);
 
+            System.out.println("========================================");
             System.out.println("MySQL Database Connected Successfully!");
+            System.out.println("========================================");
 
             return connection;
 
@@ -136,7 +109,7 @@ public class DBconnection {
 
         } catch (SQLException e) {
 
-            System.err.println("Failed to connect to MySQL Database!");
+            System.err.println("MYSQL CONNECTION FAILED!");
             e.printStackTrace();
         }
 
