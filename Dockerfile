@@ -6,7 +6,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Stage 2: Run Tomcat 10 Application Server
-FROM tomcat:10.1-jdk21-corretto
+FROM tomcat:9.0-jdk21-corretto
 RUN rm -rf /usr/local/tomcat/webapps/ROOT /usr/local/tomcat/webapps/ROOT.war
 COPY --from=build /app/target/ROOT.war /usr/local/tomcat/webapps/ROOT.war
 
