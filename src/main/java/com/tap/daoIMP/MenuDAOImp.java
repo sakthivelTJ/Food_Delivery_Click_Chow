@@ -38,6 +38,7 @@ public class MenuDAOImp implements MenuDAO {
     public void addMenu(Menu menu) {
 
         Connection con = DBconnection.getConnection();
+        if (con == null) return;
 
         try {
 
@@ -66,6 +67,7 @@ public class MenuDAOImp implements MenuDAO {
     public Menu getMenu(int menu_id) {
 
         Connection con = DBconnection.getConnection();
+        if (con == null) return null;
 
         Menu menu = null;
 
@@ -98,6 +100,7 @@ public class MenuDAOImp implements MenuDAO {
     public void updateMenu(Menu menu) {
 
         Connection con = DBconnection.getConnection();
+        if (con == null) return;
 
         try {
 
@@ -129,6 +132,7 @@ public class MenuDAOImp implements MenuDAO {
     public void deleteMenu(int menu_id) {
 
         Connection con = DBconnection.getConnection();
+        if (con == null) return;
 
         try {
 
@@ -155,6 +159,7 @@ public class MenuDAOImp implements MenuDAO {
         ArrayList<Menu> list = new ArrayList<>();
 
         Connection con = DBconnection.getConnection();
+        if (con == null) return list;
 
         try {
 
@@ -239,6 +244,7 @@ public class MenuDAOImp implements MenuDAO {
         ArrayList<Menu> list = new ArrayList<>();
 
         Connection con = DBconnection.getConnection();
+        if (con == null) return list;
 
         try {
 

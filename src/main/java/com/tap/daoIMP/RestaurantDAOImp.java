@@ -33,6 +33,7 @@ public class RestaurantDAOImp implements RestaurantDAO {
 	public void addRestaurant(Restaurant restaurant) {
 
 		Connection con = DBconnection.getConnection();
+		if (con == null) return;
 
 		try {
 
@@ -61,6 +62,7 @@ public class RestaurantDAOImp implements RestaurantDAO {
 	public Restaurant getRestaurant(int restaurant_id) {
 
 		Connection con = DBconnection.getConnection();
+		if (con == null) return null;
 
 		Restaurant restaurant = null;
 
@@ -93,6 +95,7 @@ public class RestaurantDAOImp implements RestaurantDAO {
 	public void updateRestaurant(Restaurant restaurant) {
 
 		Connection con = DBconnection.getConnection();
+		if (con == null) return;
 
 		try {
 
@@ -125,6 +128,7 @@ public class RestaurantDAOImp implements RestaurantDAO {
 	public void deleteRestaurant(int restaurant_id) {
 
 		Connection con = DBconnection.getConnection();
+		if (con == null) return;
 
 		try {
 
