@@ -21,10 +21,17 @@ public class restaurantServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		List<Restaurant> allRestaurant = null;
+		try {
+			RestaurantDAOImp restaurantDAOImp = new RestaurantDAOImp();
+			allRestaurant = restaurantDAOImp.getAllRestaurant();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		
-		RestaurantDAOImp restaurantDAOImp = new RestaurantDAOImp();
-		List<Restaurant> allRestaurant = restaurantDAOImp.getAllRestaurant();
+		if (allRestaurant == null) {
+			allRestaurant = new java.util.ArrayList<>();
+		}
 		
 		for (Restaurant restaurant : allRestaurant) {
 			System.out.println(restaurant);
@@ -36,3 +43,4 @@ public class restaurantServlet extends HttpServlet{
 		rd.forward(req, resp);
 	}
 }
+

@@ -151,6 +151,10 @@ public class RestaurantDAOImp implements RestaurantDAO {
 		ArrayList<Restaurant> list = new ArrayList<>();
 
 		Connection con = DBconnection.getConnection();
+		if (con == null) {
+			System.err.println("DBconnection returned null in getAllRestaurant()");
+			return list;
+		}
 
 		try {
 
@@ -166,7 +170,7 @@ public class RestaurantDAOImp implements RestaurantDAO {
 
 			}
 
-		} catch (SQLException e) {
+		} catch (Exception e) {
 
 			e.printStackTrace();
 
