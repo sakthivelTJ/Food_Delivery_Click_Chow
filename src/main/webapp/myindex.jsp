@@ -608,7 +608,7 @@
 				</div>
 				<%
 				}
-				}
+				
 				%>
 			</div>
 		</div>
@@ -833,7 +833,7 @@
         totalCount: <%= initCount %>,
         deliveryFee: <%= initDelivery %>,
         gst: <%= initGst %>,
-        grandTotal: <%= initGrand %>
+        grandTotal: <%=initGrand %>
     };
 
     function normalizeItem(raw, existing) {

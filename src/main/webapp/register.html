@@ -6,7 +6,153 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FoodHub | Register</title>
 
-    <style>
+<link rel="stylesheet" href="index.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"></head>
+
+<body>
+
+    <!-- TOP CORNER BACK NAVIGATION BUTTON BELOW HEADER SECTION -->
+    <div class="top-back-bar" style="position: absolute; top: 20px; left: 20px; z-index: 100;">
+        <a href="login.jsp" class="btn-back-nav" id="backToLoginBtn">
+            <i class="fa-solid fa-arrow-left"></i> <span>Login</span>
+        </a>
+    </div>
+
+    <div class="container">
+
+
+        <div class="glass-card">
+
+            <div class="logo">
+                🍔 Click Chow
+            </div>
+
+            <h2>Create Account</h2>
+
+            <p class="subtitle">
+                Join the delicious journey
+            </p>
+
+            <form action="RegisterServlet" method="post">
+
+                <div class="input-group">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter Username"
+                        required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter Email"
+                        required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter Password"
+                        required>
+
+                </div>
+                <div class="input-group">
+
+                    <label for="address">
+                        Address
+                    </label>
+
+                    <textarea rows="1"
+                    id= "address"
+                    name="address"
+                    placeholder="Enter the Address"
+                    required="required"
+                    ></textarea>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label for="role">
+                        Select Role
+                    </label>
+
+                    <select
+                        id="role"
+                        name="role"
+                        required>
+
+                        <option value="">
+                            Choose Role
+                        </option>
+
+                        <option value="Customer">
+                            Customer
+                        </option>
+
+                        <option value="Admin">
+                            Admin
+                        </option>
+
+                        <option value="delivery">
+                            Delivery Partner
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <button
+                    type="submit"
+                    id="registerBtn"
+                    name="registerBtn">
+
+                    Create Account
+
+                </button>
+
+                <p class="login-text">
+                    Already have an account?
+
+                    <a href="login.jsp">
+                        Login
+                    </a>
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+
+ <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
 :root{
@@ -216,152 +362,7 @@ button:hover{
 .input-group textarea::placeholder{
     color:#9ca3af;
 }
+</style>
 
-<link rel="stylesheet" href="index.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-</head>
-
-<body>
-
-    <!-- TOP CORNER BACK NAVIGATION BUTTON BELOW HEADER SECTION -->
-    <div class="top-back-bar" style="position: absolute; top: 20px; left: 20px; z-index: 100;">
-        <a href="login.jsp" class="btn-back-nav" id="backToLoginBtn">
-            <i class="fa-solid fa-arrow-left"></i> <span>Login</span>
-        </a>
-    </div>
-
-    <div class="container">
-
-
-        <div class="glass-card">
-
-            <div class="logo">
-                🍔 Click Chow
-            </div>
-
-            <h2>Create Account</h2>
-
-            <p class="subtitle">
-                Join the delicious journey
-            </p>
-
-            <form action="RegisterServlet" method="post">
-
-                <div class="input-group">
-
-                    <label for="username">
-                        Username
-                    </label>
-
-                    <input
-                        type="text"
-                        id="username"
-                        name="username"
-                        placeholder="Enter Username"
-                        required>
-
-                </div>
-
-                <div class="input-group">
-
-                    <label for="email">
-                        Email Address
-                    </label>
-
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Enter Email"
-                        required>
-
-                </div>
-
-                <div class="input-group">
-
-                    <label for="password">
-                        Password
-                    </label>
-
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Enter Password"
-                        required>
-
-                </div>
-                <div class="input-group">
-
-                    <label for="address">
-                        Address
-                    </label>
-
-                    <textarea rows="1"
-                    id= "address"
-                    name="address"
-                    placeholder="Enter the Address"
-                    required="required"
-                    ></textarea>
-
-                </div>
-
-                <div class="input-group">
-
-                    <label for="role">
-                        Select Role
-                    </label>
-
-                    <select
-                        id="role"
-                        name="role"
-                        required>
-
-                        <option value="">
-                            Choose Role
-                        </option>
-
-                        <option value="Customer">
-                            Customer
-                        </option>
-
-                        <option value="Admin">
-                            Admin
-                        </option>
-
-                        <option value="delivery">
-                            Delivery Partner
-                        </option>
-
-                    </select>
-
-                </div>
-
-                <button
-                    type="submit"
-                    id="registerBtn"
-                    name="registerBtn">
-
-                    Create Account
-
-                </button>
-
-                <p class="login-text">
-                    Already have an account?
-
-                    <a href="login.jsp">
-                        Login
-                    </a>
-                </p>
-
-            </form>
-
-        </div>
-
-    </div>
-
-</body>
 
 </html>
