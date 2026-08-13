@@ -417,7 +417,20 @@
 
 			<div class="restaurants-grid">
 				<%
+					@SuppressWarnings("unchecked")
 					List<Restaurant> allRestaurant = (List<Restaurant>) request.getAttribute("allRestaurant");
+					if (allRestaurant == null || allRestaurant.isEmpty()) {
+						com.tap.daoIMP.RestaurantDAOImp rDao = new com.tap.daoIMP.RestaurantDAOImp();
+						try { allRestaurant = rDao.getAllRestaurant(); } catch (Exception e) {}
+					}
+					if (allRestaurant == null || allRestaurant.isEmpty()) {
+						allRestaurant = new java.util.ArrayList<Restaurant>();
+						allRestaurant.add(new Restaurant(1, "Annalakshmi Restaurant", "South Indian, Veg", "20-30 mins", "Cathedral Road, Chennai", 4.8, true, "images/restaurants/annalakshmi.png"));
+						allRestaurant.add(new Restaurant(2, "Avartana - ITC Grand Chola", "Luxury South Indian", "30-40 mins", "Guindy, Chennai", 4.9, true, "images/restaurants/avartana.jpg"));
+						allRestaurant.add(new Restaurant(3, "Paati Veedu", "Traditional Tamil", "25-35 mins", "T. Nagar, Chennai", 4.7, true, "images/restaurants/paati_veedu.png"));
+						allRestaurant.add(new Restaurant(4, "Southern Spice", "South & Chettinad", "25-35 mins", "Nungambakkam, Chennai", 4.8, true, "images/restaurants/southern_spice.jpg"));
+						allRestaurant.add(new Restaurant(5, "Pakwan Chennai", "North Indian, Mughlai", "30-40 mins", "T. Nagar, Chennai", 4.6, true, "images/restaurants/pakwan_chennai.jpg"));
+					}
 					for (Restaurant restaurant : allRestaurant) {
 				%>
 				<div class="restaurant-card">
