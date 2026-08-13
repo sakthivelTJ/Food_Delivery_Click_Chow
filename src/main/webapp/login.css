@@ -193,19 +193,19 @@ button{
     padding:15px;
     border:none;
     border-radius:50px;
-    background:linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background:linear-gradient(135deg, #ff5a36 0%, #ec4899 100%);
     color:white;
     font-size:17px;
     font-weight:700;
     cursor:pointer;
-    transition:.3s;
-    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: none;
 }
 
 button:hover{
     transform:translateY(-3px);
-    background:linear-gradient(135deg, #059669 0%, #047857 100%);
-    box-shadow:0 12px 30px rgba(16, 185, 129, 0.55);
+    background:linear-gradient(135deg, #ff6838 0%, #ff3d87 100%);
+    box-shadow:0 12px 30px rgba(255, 90, 54, 0.55);
 }
 
 

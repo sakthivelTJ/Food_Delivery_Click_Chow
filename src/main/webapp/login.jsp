@@ -71,7 +71,7 @@
                 </p>
 
                 <p class="register-text" style="margin-top: 15px; font-size: 13px;">
-                    Dedicated login page: <a href="deliveryLogin.jsp" style="color: #10b981;">🚴 Delivery Portal ↗</a>
+                    Dedicated login page: <a href="deliveryLogin.jsp" style="color: #ff5a36;">🚴 Delivery Portal ↗</a>
                 </p>
             </form>
         </div>

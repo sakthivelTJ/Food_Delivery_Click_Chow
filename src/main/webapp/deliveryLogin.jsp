@@ -12,7 +12,7 @@
 
     <style>
         .delivery-tag {
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: linear-gradient(135deg, #ff5a36, #ec4899);
             color: white;
             padding: 4px 14px;
             border-radius: 20px;
@@ -72,7 +72,7 @@
                 <input type="password" id="password" name="password" placeholder="Enter password" required>
             </div>
 
-            <button type="submit" style="background: linear-gradient(135deg, #10b981, #059669);">Sign In to Delivery Portal</button>
+            <button type="submit">Sign In to Delivery Portal</button>
         </form>
 
         <div class="register-text">
