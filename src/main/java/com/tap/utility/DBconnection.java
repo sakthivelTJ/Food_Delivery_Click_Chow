@@ -6,55 +6,140 @@ import java.sql.SQLException;
 
 public class DBconnection {
 
+    // ==============================
+    // DATABASE URL
+    // ==============================
     public static String getUrl() {
-        String envUrl = System.getenv("MYSQL_URL");
-        if (envUrl != null && !envUrl.trim().isEmpty()) {
-            if (!envUrl.startsWith("jdbc:mysql://")) {
-                envUrl = "jdbc:" + envUrl;
+
+        // Railway MYSQL_URL
+        String mysqlUrl = System.getenv("MYSQL_URL");
+
+        if (mysqlUrl != null && !mysqlUrl.trim().isEmpty()) {
+
+            if (mysqlUrl.startsWith("mysql://")) {
+                mysqlUrl = "jdbc:" + mysqlUrl;
             }
-            return envUrl;
+
+            return mysqlUrl;
         }
 
-        String host = System.getenv("MYSQLHOST");
+        // Railway individual MySQL variables
+        String host = System.getenv("DB_HOST");
+        String port = System.getenv("MYSQLPORT");
+        String database = System.getenv("MYSQL_DATABASE");
+
         if (host != null && !host.trim().isEmpty()) {
-            String port = System.getenv("MYSQLPORT") != null ? System.getenv("MYSQLPORT") : "3306";
-            String db = System.getenv("MYSQLDATABASE") != null ? System.getenv("MYSQLDATABASE") : "dao";
-            return "jdbc:mysql://" + host + ":" + port + "/" + db + "?useSSL=false&allowPublicKeyRetrieval=true";
+
+            if (port == null || port.trim().isEmpty()) {
+                port = "3306";
+            }
+
+            if (database == null || database.trim().isEmpty()) {
+                database = "dao";
+            }
+
+            return "jdbc:mysql://" + host + ":" + port + "/" + database
+                    + "?useSSL=false"
+                    + "&allowPublicKeyRetrieval=true"
+                    + "&serverTimezone=UTC";
         }
 
+        // Optional custom database URL
         String customUrl = System.getenv("DB_URL");
+
         if (customUrl != null && !customUrl.trim().isEmpty()) {
             return customUrl;
         }
 
-        return "jdbc:mysql://localhost:3306/dao?useSSL=false&allowPublicKeyRetrieval=true";
+        // Local development fallback
+        return "jdbc:mysql://localhost:3306/dao"
+                + "?useSSL=false"
+                + "&allowPublicKeyRetrieval=true"
+                + "&serverTimezone=UTC";
     }
 
+
+    // ==============================
+    // DATABASE USERNAME
+    // ==============================
     public static String getUser() {
-        String envUser = System.getenv("MYSQLUSER");
-        if (envUser != null && !envUser.trim().isEmpty()) return envUser;
+
+        String mysqlUser = System.getenv("MYSQLUSER");
+
+        if (mysqlUser != null && !mysqlUser.trim().isEmpty()) {
+            return mysqlUser;
+        }
+
         String customUser = System.getenv("DB_USER");
-        if (customUser != null && !customUser.trim().isEmpty()) return customUser;
+
+        if (customUser != null && !customUser.trim().isEmpty()) {
+            return customUser;
+        }
+
+        // Local development
         return "root";
     }
 
+
+    // ==============================
+    // DATABASE PASSWORD
+    // ==============================
     public static String getPassword() {
-        String envPass = System.getenv("MYSQLPASSWORD");
-        if (envPass != null && !envPass.trim().isEmpty()) return envPass;
-        String customPass = System.getenv("DB_PASSWORD");
-        if (customPass != null && !customPass.trim().isEmpty()) return customPass;
+
+        String mysqlPassword = System.getenv("MYSQLPASSWORD");
+
+        if (mysqlPassword != null && !mysqlPassword.trim().isEmpty()) {
+            return mysqlPassword;
+        }
+
+        String customPassword = System.getenv("DB_PASSWORD");
+
+        if (customPassword != null && !customPassword.trim().isEmpty()) {
+            return customPassword;
+        }
+
+        // Local development
         return "Lucifer.t.j7";
     }
 
+
+    // ==============================
+    // CREATE DATABASE CONNECTION
+    // ==============================
     public static Connection getConnection() {
-        Connection connection = null;
+
         try {
+
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(getUrl(), getUser(), getPassword());
-        } catch (ClassNotFoundException | SQLException e) {
+
+            String url = getUrl();
+            String user = getUser();
+            String password = getPassword();
+
+            System.out.println("========================================");
+            System.out.println("Database Connection Information");
+            System.out.println("URL  : " + url);
+            System.out.println("User : " + user);
+            System.out.println("========================================");
+
+            Connection connection =
+                    DriverManager.getConnection(url, user, password);
+
+            System.out.println("MySQL Database Connected Successfully!");
+
+            return connection;
+
+        } catch (ClassNotFoundException e) {
+
+            System.err.println("MySQL JDBC Driver not found!");
+            e.printStackTrace();
+
+        } catch (SQLException e) {
+
+            System.err.println("Failed to connect to MySQL Database!");
             e.printStackTrace();
         }
-        return connection;
+
+        return null;
     }
 }
-
