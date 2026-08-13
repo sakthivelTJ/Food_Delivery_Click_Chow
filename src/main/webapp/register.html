@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodHub | Register</title>
+
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+:root{
+    --bg:#0b0c10;
+    --card:#1a1f2c;
+    --border:rgba(255,255,255,.08);
+    --primary:#ff5a36;
+    --secondary:#ec4899;
+    --gradient:linear-gradient(135deg,#ff5a36,#ec4899);
+    --text:#fff;
+    --text2:#9ca3af;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Outfit',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#0b0c10;
+    overflow:hidden;
+    position:relative;
+}
+
+body::before{
+    content:"";
+    position:absolute;
+    width:650px;
+    height:650px;
+    background:radial-gradient(circle,rgba(255,90,54,.18),transparent 70%);
+    top:-220px;
+    left:-200px;
+    animation:float1 12s infinite alternate;
+}
+
+body::after{
+    content:"";
+    position:absolute;
+    width:550px;
+    height:550px;
+    background:radial-gradient(circle,rgba(236,72,153,.15),transparent 70%);
+    bottom:-220px;
+    right:-180px;
+    animation:float2 10s infinite alternate;
+}
+
+@keyframes float1{
+    to{
+        transform:translate(120px,80px);
+    }
+}
+
+@keyframes float2{
+    to{
+        transform:translate(-120px,-80px);
+    }
+}
+
+.container{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    z-index:2;
+    padding:30px;
+}
+
+.glass-card{
+    width:460px;
+    padding:40px;
+    border-radius:24px;
+    background:rgba(26,31,44,.88);
+    backdrop-filter:blur(18px);
+    border:1px solid var(--border);
+    box-shadow:0 20px 50px rgba(0,0,0,.45);
+}
+
+.logo{
+    text-align:center;
+    font-size:40px;
+    color:var(--primary);
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+h2{
+    text-align:center;
+    color:white;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    text-align:center;
+    color:var(--text2);
+    margin-bottom:30px;
+}
+
+.input-group{
+    margin-bottom:18px;
+}
+
+.input-group label{
+    display:block;
+    margin-bottom:8px;
+    color:white;
+    font-weight:500;
+}
+
+.input-group input,
+.input-group select{
+    width:100%;
+    padding:15px;
+    border-radius:14px;
+    border:1px solid var(--border);
+    background:#121620;
+    color:white;
+    transition:.3s;
+}
+.input-group textarea{
+	width: 100%;
+    padding: 15px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: #121620;
+    color: white;
+    transition: .3s;
+}
+
+.input-group textarea:focus{
+	border-color:var(--primary);
+    box-shadow:0 0 0 4px rgba(255,90,54,.15);
+}
+
+.input-group input:focus,
+.input-group select:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 4px rgba(255,90,54,.15);
+}
+
+select option{
+    background:#121620;
+    color:white;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    margin-top:12px;
+    border:none;
+    border-radius:50px;
+    background:var(--gradient);
+    color:white;
+    font-size:17px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(255,90,54,.4);
+}
+
+.login-text{
+    margin-top:25px;
+    text-align:center;
+    color:var(--text2);
+}
+
+.login-text a{
+    color:var(--primary);
+    text-decoration:none;
+    font-weight:600;
+}
+
+@media(max-width:520px){
+
+    .glass-card{
+        width:100%;
+        padding:30px;
+    }
+
+}
+
+.input-group textarea{
+    width:100%;
+    min-height:56px;
+    height:56px;
+    padding:15px;
+    border-radius:14px;
+    border:1px solid var(--border);
+    background:#121620;
+    color:white;
+    font-size:15px;
+    font-family:'Outfit',sans-serif;
+    resize:vertical;
+    outline:none;
+    transition:.3s;
+}
+.input-group textarea::placeholder{
+    color:#9ca3af;
+}
+
+<link rel="stylesheet" href="index.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- TOP CORNER BACK NAVIGATION BUTTON BELOW HEADER SECTION -->
+    <div class="top-back-bar" style="position: absolute; top: 20px; left: 20px; z-index: 100;">
+        <a href="login.jsp" class="btn-back-nav" id="backToLoginBtn">
+            <i class="fa-solid fa-arrow-left"></i> <span>Login</span>
+        </a>
+    </div>
+
+    <div class="container">
+
+
+        <div class="glass-card">
+
+            <div class="logo">
+                🍔 Click Chow
+            </div>
+
+            <h2>Create Account</h2>
+
+            <p class="subtitle">
+                Join the delicious journey
+            </p>
+
+            <form action="RegisterServlet" method="post">
+
+                <div class="input-group">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter Username"
+                        required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter Email"
+                        required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter Password"
+                        required>
+
+                </div>
+                <div class="input-group">
+
+                    <label for="address">
+                        Address
+                    </label>
+
+                    <textarea rows="1"
+                    id= "address"
+                    name="address"
+                    placeholder="Enter the Address"
+                    required="required"
+                    ></textarea>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label for="role">
+                        Select Role
+                    </label>
+
+                    <select
+                        id="role"
+                        name="role"
+                        required>
+
+                        <option value="">
+                            Choose Role
+                        </option>
+
+                        <option value="Customer">
+                            Customer
+                        </option>
+
+                        <option value="Admin">
+                            Admin
+                        </option>
+
+                        <option value="delivery">
+                            Delivery Partner
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <button
+                    type="submit"
+                    id="registerBtn"
+                    name="registerBtn">
+
+                    Create Account
+
+                </button>
+
+                <p class="login-text">
+                    Already have an account?
+
+                    <a href="login.jsp">
+                        Login
+                    </a>
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
