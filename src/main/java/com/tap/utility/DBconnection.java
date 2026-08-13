@@ -8,19 +8,6 @@ public class DBconnection {
 
     public static String getUrl() {
 
-        // Railway MySQL URL
-        String mysqlUrl = System.getenv("MYSQL_URL");
-
-        if (mysqlUrl != null && !mysqlUrl.trim().isEmpty()) {
-
-            if (mysqlUrl.startsWith("mysql://")) {
-                mysqlUrl = "jdbc:" + mysqlUrl;
-            }
-
-            return mysqlUrl;
-        }
-
-        // Railway MySQL variables
         String host = System.getenv("MYSQLHOST");
         String port = System.getenv("MYSQLPORT");
         String database = System.getenv("MYSQL_DATABASE");
@@ -42,9 +29,9 @@ public class DBconnection {
         return "jdbc:mysql://" + host + ":" + port + "/" + database
                 + "?useSSL=false"
                 + "&allowPublicKeyRetrieval=true"
-                + "&serverTimezone=UTC";
+                + "&serverTimezone=UTC"
+                + "&connectTimeout=10000";
     }
-
 
     public static String getUser() {
 
@@ -58,7 +45,6 @@ public class DBconnection {
         return user;
     }
 
-
     public static String getPassword() {
 
         String password = System.getenv("MYSQLPASSWORD");
@@ -71,40 +57,45 @@ public class DBconnection {
         return password;
     }
 
-
     public static Connection getConnection() {
 
         try {
 
             Class.forName("com.mysql.cj.jdbc.Driver");
 
+            String host = System.getenv("MYSQLHOST");
+            String port = System.getenv("MYSQLPORT");
+            String database = System.getenv("MYSQL_DATABASE");
+
             String url = getUrl();
             String user = getUser();
             String password = getPassword();
 
             if (url == null || user == null || password == null) {
-                System.err.println("ERROR: Railway MySQL configuration is incomplete.");
+                System.err.println("Railway MySQL variables are incomplete.");
                 return null;
             }
 
             System.out.println("========================================");
-            System.out.println("Connecting to Railway MySQL...");
-            System.out.println("URL  : " + url);
-            System.out.println("USER : " + user);
+            System.out.println("RAILWAY MYSQL CONNECTION");
+            System.out.println("Host     : " + host);
+            System.out.println("Port     : " + port);
+            System.out.println("Database : " + database);
+            System.out.println("User     : " + user);
             System.out.println("========================================");
 
             Connection connection =
                     DriverManager.getConnection(url, user, password);
 
             System.out.println("========================================");
-            System.out.println("MySQL Database Connected Successfully!");
+            System.out.println("MYSQL DATABASE CONNECTED SUCCESSFULLY!");
             System.out.println("========================================");
 
             return connection;
 
         } catch (ClassNotFoundException e) {
 
-            System.err.println("MySQL JDBC Driver not found!");
+            System.err.println("MySQL JDBC Driver NOT FOUND!");
             e.printStackTrace();
 
         } catch (SQLException e) {
