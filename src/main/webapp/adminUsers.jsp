@@ -63,12 +63,6 @@
     </div>
 </div>
 
-<!-- TOP CORNER BACK NAVIGATION BUTTON BELOW HEADER SECTION -->
-<div class="top-back-bar">
-    <a href="adminMenu.jsp" class="btn-back-nav" id="backToAdminMenuBtn">
-        <i class="fa-solid fa-arrow-left"></i> <span>Admin Menu</span>
-    </a>
-</div>
 
 
 <div class="admin-container">

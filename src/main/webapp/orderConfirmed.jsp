@@ -282,12 +282,6 @@ h1 {
 
 	</header>
 
-	<!-- TOP CORNER BACK NAVIGATION BUTTON BELOW HEADER SECTION -->
-	<div class="top-back-bar">
-		<a href="orderHistory" class="btn-back-nav" id="backToOrderHistoryBtn">
-			<i class="fa-solid fa-arrow-left"></i> <span>Order History</span>
-		</a>
-	</div>
 
 	<div class="container">
 
@@ -314,6 +308,10 @@ h1 {
 					<h3>Estimated Delivery</h3>
 					<p>25 - 30 Minutes</p>
 				</div>
+				<%
+					
+				
+				%>
 
 				<div class="box">
 					<i class="fa-solid fa-receipt"></i>
@@ -327,7 +325,7 @@ h1 {
 
 				<a href="orderHistory" class="btn primary"> <i
 					class="fa-solid fa-clock-rotate-left"></i> View Order History
-				</a> <a href="restaurant" class="btn secondary"> <i
+				</a> <a href="accessed" class="btn secondary"> <i
 					class="fa-solid fa-house"></i> Back to Home
 				</a>
 

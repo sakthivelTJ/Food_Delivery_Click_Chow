@@ -303,12 +303,7 @@
         </div>
     </header>
 
-    <!-- TOP CORNER BACK NAVIGATION BUTTON BELOW HEADER SECTION -->
-    <div class="top-back-bar">
-        <a href="restaurant" class="btn-back-nav" id="backToRestaurantsBtn">
-            <i class="fa-solid fa-arrow-left"></i> <span>Restaurants</span>
-        </a>
-    </div>
+   
 
     <div class="edit-profile-container">
 

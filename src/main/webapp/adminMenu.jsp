@@ -56,12 +56,7 @@
     </div>
 </div>
 
-<!-- TOP CORNER BACK NAVIGATION BUTTON BELOW HEADER SECTION -->
-<div class="top-back-bar">
-    <a href="adminLogin.jsp" class="btn-back-nav" id="backToAdminLoginBtn">
-        <i class="fa-solid fa-arrow-left"></i> <span>Admin Login</span>
-    </a>
-</div>
+
 
 <div class="admin-container">
 
