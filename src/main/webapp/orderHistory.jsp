@@ -75,8 +75,10 @@ body {
 	background: #090b12;
 	color: #fff;
 	min-height: 100vh;
-	background-image: radial-gradient(circle at top left, rgba(255, 90, 54, 0.12), transparent 40%),
-		radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.12), transparent 40%);
+	background-image: radial-gradient(circle at top left, rgba(255, 90, 54, 0.12),
+		transparent 40%),
+		radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.12),
+		transparent 40%);
 }
 
 .history-container {
@@ -87,7 +89,8 @@ body {
 
 /* Page Header & Stats */
 .history-hero {
-	background: linear-gradient(135deg, rgba(24, 29, 43, 0.9), rgba(18, 22, 32, 0.9));
+	margin-top: 75px; background : linear-gradient( 135deg, rgba( 24, 29, 43
+	, 0.9), rgba( 18, 22, 32, 0.9));
 	border: 1px solid rgba(255, 255, 255, 0.08);
 	border-radius: 24px;
 	padding: 35px 30px;
@@ -98,6 +101,8 @@ body {
 	align-items: center;
 	flex-wrap: wrap;
 	gap: 20px;
+	background: linear-gradient(135deg, rgba(24, 29, 43, 0.9),
+		rgba(18, 22, 32, 0.9));
 }
 
 .history-hero-text h1 {
@@ -597,37 +602,44 @@ body {
 			</a>
 
 			<nav class="nav-links">
-				<a href="restaurant">Home</a>
-				<a href="restaurant#restaurants-section">Restaurants</a>
-				<a href="orderHistory" class="active">Order History</a>
+				<a href="restaurant">Home</a> <a
+					href="restaurant#restaurants-section">Restaurants</a> <a
+					href="orderHistory" class="active">Order History</a>
 			</nav>
 
 			<div class="header-actions">
 				<!-- Top Right Food Search Bar -->
 				<div class="header-search-wrapper" id="header-search-wrapper">
-					<button type="button" class="header-search-trigger" id="header-search-trigger" title="Search Food">
+					<button type="button" class="header-search-trigger"
+						id="header-search-trigger" title="Search Food">
 						<i class="fa-solid fa-magnifying-glass"></i>
 					</button>
 					<div class="header-search-box" id="header-search-box">
-						<i class="fa-solid fa-magnifying-glass search-inner-icon"></i>
-						<input type="text" id="top-food-search" class="top-food-search-input" placeholder="Search food (e.g. biryani, pizza...)" autocomplete="off" />
-						<button type="button" class="header-search-close" id="header-search-close">
+						<i class="fa-solid fa-magnifying-glass search-inner-icon"></i> <input
+							type="text" id="top-food-search" class="top-food-search-input"
+							placeholder="Search food (e.g. biryani, pizza...)"
+							autocomplete="off" />
+						<button type="button" class="header-search-close"
+							id="header-search-close">
 							<i class="fa-solid fa-xmark"></i>
 						</button>
 					</div>
 					<div class="top-search-dropdown" id="top-search-dropdown"></div>
 				</div>
-				<button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle Theme">
+				<button class="theme-toggle" id="theme-toggle-btn"
+					aria-label="Toggle Theme">
 					<i class="fa-solid fa-moon"></i>
 				</button>
-				<a href="cart.jsp" class="cart-toggle-btn" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
-					<i class="fa-solid fa-bag-shopping"></i>
-					<span class="cart-count" style="margin-left: 6px;"><%=cartCount%></span>
+				<a href="cart.jsp" class="cart-toggle-btn"
+					style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
+					<i class="fa-solid fa-bag-shopping"></i> <span class="cart-count"
+					style="margin-left: 6px;"><%=cartCount%></span>
 				</a>
 
 				<div class="profile" style="margin-left: 15px;">
 					<button class="profile-btn" onclick="toggleProfile()">
-						👤 <%=user.getUser_name()%>
+						👤
+						<%=user.getUser_name()%>
 					</button>
 
 					<div class="profile-card" id="profileCard">
@@ -642,21 +654,17 @@ body {
 							<span>Role</span> <span><%=user.getRole()%></span>
 						</div>
 
-						<a href="orderHistory"><i class="fa-solid fa-clock-rotate-left"></i> Order History</a>
-						<a href="editProfile.jsp"><i class="fa-solid fa-pen"></i> Edit Profile</a>
-						<a href="LogoutServlet"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+						<a href="orderHistory"><i
+							class="fa-solid fa-clock-rotate-left"></i> Order History</a> <a
+							href="editProfile.jsp"><i class="fa-solid fa-pen"></i> Edit
+							Profile</a> <a href="LogoutServlet"><i
+							class="fa-solid fa-right-from-bracket"></i> Logout</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</header>
 
-	<!-- TOP CORNER BACK NAVIGATION BUTTON BELOW HEADER -->
-	<div class="top-back-bar">
-		<a href="restaurant" class="btn-back-nav" id="backToRestaurantsBtn">
-			<i class="fa-solid fa-arrow-left"></i> <span>Restaurants</span>
-		</a>
-	</div>
 
 	<!-- MAIN CONTENT -->
 	<div class="history-container">
@@ -667,7 +675,8 @@ body {
 				<h1>
 					<span class="gradient-text">Your Order History</span>
 				</h1>
-				<p>Track your past food orders, review item details, and reorder with a single tap.</p>
+				<p>Track your past food orders, review item details, and reorder
+					with a single tap.</p>
 			</div>
 
 			<div class="stats-grid">
@@ -681,7 +690,8 @@ body {
 				<div class="stat-pill">
 					<i class="fa-solid fa-wallet"></i>
 					<div>
-						<div class="stat-val">₹<%=String.format("%.2f", grandSpent)%></div>
+						<div class="stat-val">
+							₹<%=String.format("%.2f", grandSpent)%></div>
 						<div class="stat-lbl">Total Spent</div>
 					</div>
 				</div>
@@ -696,20 +706,26 @@ body {
 		</div>
 
 		<!-- FILTER & SEARCH BAR -->
-		<% if (userOrders != null && !userOrders.isEmpty()) { %>
+		<%
+		if (userOrders != null && !userOrders.isEmpty()) {
+		%>
 		<div class="filter-bar">
 			<div class="filter-tabs">
-				<button class="tab-btn active" onclick="filterOrders('all', this)">All Orders</button>
+				<button class="tab-btn active" onclick="filterOrders('all', this)">All
+					Orders</button>
 				<button class="tab-btn" onclick="filterOrders('pending', this)">Pending</button>
 				<button class="tab-btn" onclick="filterOrders('delivered', this)">Delivered</button>
 			</div>
 
 			<div class="search-input-box">
-				<i class="fa-solid fa-magnifying-glass"></i>
-				<input type="text" id="searchOrderInput" onkeyup="searchOrders()" placeholder="Search order ID, restaurant..." />
+				<i class="fa-solid fa-magnifying-glass"></i> <input type="text"
+					id="searchOrderInput" onkeyup="searchOrders()"
+					placeholder="Search order ID, restaurant..." />
 			</div>
 		</div>
-		<% } %>
+		<%
+		}
+		%>
 
 		<!-- ORDERS LIST -->
 		<%
@@ -720,53 +736,57 @@ body {
 				<i class="fa-solid fa-utensils"></i>
 			</div>
 			<h2>No Orders Placed Yet</h2>
-			<p>Looks like you haven't placed any food orders yet. Explore our top-rated restaurants and order your favorite feast now!</p>
-			<a href="restaurant" class="btn-primary" style="display: inline-flex; font-size: 16px; padding: 14px 32px;">
+			<p>Looks like you haven't placed any food orders yet. Explore our
+				top-rated restaurants and order your favorite feast now!</p>
+			<a href="restaurant" class="btn-primary"
+				style="display: inline-flex; font-size: 16px; padding: 14px 32px;">
 				<i class="fa-solid fa-compass"></i> Explore Restaurants
 			</a>
 		</div>
 		<%
 		} else {
-			for (order_table ord : userOrders) {
-				Restaurant rest = restDAO.getRestaurant(ord.getRestaurantID());
-				String restName = (rest != null && rest.getName() != null) ? rest.getName() : "Click Chow Restaurant";
-				String restImg = (rest != null && rest.getImagePath() != null && !rest.getImagePath().isEmpty())
-						? rest.getImagePath()
-						: "assets/images/biryani.png";
-				
-				List<order_item> itemsList = itemDAO.getOrderItemsByOrderId(ord.getOrderID());
-				String status = ord.getStatus() != null ? ord.getStatus() : "Pending";
-				String statusClass = "status-pending";
-				if ("Delivered".equalsIgnoreCase(status) || "Confirmed".equalsIgnoreCase(status)) {
-					statusClass = "status-delivered";
-				} else if ("Cancelled".equalsIgnoreCase(status)) {
-					statusClass = "status-cancelled";
-				}
-				
-				String formattedDate = (ord.getOrderDate() != null) ? sdf.format(ord.getOrderDate()) : "N/A";
+		for (order_table ord : userOrders) {
+			Restaurant rest = restDAO.getRestaurant(ord.getRestaurantID());
+			String restName = (rest != null && rest.getName() != null) ? rest.getName() : "Click Chow Restaurant";
+			String restImg = (rest != null && rest.getImagePath() != null && !rest.getImagePath().isEmpty())
+			? rest.getImagePath()
+			: "assets/images/biryani.png";
+
+			List<order_item> itemsList = itemDAO.getOrderItemsByOrderId(ord.getOrderID());
+			String status = ord.getStatus() != null ? ord.getStatus() : "Pending";
+			String statusClass = "status-pending";
+			if ("Delivered".equalsIgnoreCase(status) || "Confirmed".equalsIgnoreCase(status)) {
+				statusClass = "status-delivered";
+			} else if ("Cancelled".equalsIgnoreCase(status)) {
+				statusClass = "status-cancelled";
+			}
+
+			String formattedDate = (ord.getOrderDate() != null) ? sdf.format(ord.getOrderDate()) : "N/A";
 		%>
-		<div class="order-card" data-status="<%=status%>" id="order-<%=ord.getOrderID()%>">
+		<div class="order-card" data-status="<%=status%>"
+			id="order-<%=ord.getOrderID()%>">
 			<div class="order-header">
 				<div class="rest-details">
 					<div class="rest-avatar">
-						<img src="<%=restImg%>" alt="<%=restName%>" onerror="this.src='assets/images/biryani.png'" />
+						<img src="<%=restImg%>" alt="<%=restName%>"
+							onerror="this.src='assets/images/biryani.png'" />
 					</div>
 					<div class="rest-meta">
 						<h3><%=restName%></h3>
 						<div class="order-id-date">
-							<span><i class="fa-solid fa-hashtag" style="color:#ff5a36;"></i> ORD-<%=ord.getOrderID()%></span>
-							<span>•</span>
+							<span><i class="fa-solid fa-hashtag"
+								style="color: #ff5a36;"></i> ORD-<%=ord.getOrderID()%></span> <span>•</span>
 							<span><i class="fa-regular fa-clock"></i> <%=formattedDate%></span>
 						</div>
 					</div>
 				</div>
 
-				<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
-					<span class="order-status-badge <%=statusClass%>">
-						<i class="fa-solid fa-circle-dot"></i> <%=status%>
-					</span>
-					<span style="font-size: 12px; color: #9ea8bc;">
-						Payment: <strong style="color:#fff;"><%=ord.getPaymentMethod() != null ? ord.getPaymentMethod() : "COD"%></strong>
+				<div
+					style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
+					<span class="order-status-badge <%=statusClass%>"> <i
+						class="fa-solid fa-circle-dot"></i> <%=status%>
+					</span> <span style="font-size: 12px; color: #9ea8bc;"> Payment: <strong
+						style="color: #fff;"><%=ord.getPaymentMethod() != null ? ord.getPaymentMethod() : "COD"%></strong>
 					</span>
 				</div>
 			</div>
@@ -777,29 +797,38 @@ body {
 				if (itemsList != null && !itemsList.isEmpty()) {
 					for (order_item item : itemsList) {
 						Menu mItem = menuDAO.getMenu(item.getMenuID());
-						String dishName = (mItem != null && mItem.getItemName() != null) ? mItem.getItemName() : ("Dish #" + item.getMenuID());
+						String dishName = (mItem != null && mItem.getItemName() != null) ? mItem.getItemName()
+						: ("Dish #" + item.getMenuID());
 						String dishImg = "assets/images/biryani.png";
 						if (mItem != null && mItem.getImagePath() != null && !mItem.getImagePath().isEmpty()) {
-							dishImg = mItem.getImagePath();
+					dishImg = mItem.getImagePath();
 						}
 						double unitPrice = item.getItemTotal() / (item.getQuantity() > 0 ? item.getQuantity() : 1);
 				%>
 				<div class="order-item-row">
 					<div class="item-info">
-						<img src="<%=dishImg%>" alt="<%=dishName%>" class="item-img" onerror="this.src='assets/images/biryani.png'" />
+						<img src="<%=dishImg%>" alt="<%=dishName%>" class="item-img"
+							onerror="this.src='assets/images/biryani.png'" />
 						<div>
 							<div class="item-name"><%=dishName%></div>
-							<div class="item-qty-price">₹<%=String.format("%.2f", unitPrice)%> × <%=item.getQuantity()%></div>
+							<div class="item-qty-price">
+								₹<%=String.format("%.2f", unitPrice)%>
+								×
+								<%=item.getQuantity()%></div>
 						</div>
 					</div>
-					<div class="item-total-val">₹<%=String.format("%.2f", item.getItemTotal())%></div>
+					<div class="item-total-val">
+						₹<%=String.format("%.2f", item.getItemTotal())%></div>
 				</div>
 				<%
-					}
+				}
 				} else {
 				%>
-				<div style="color: #9ea8bc; font-size: 14px; font-style: italic;">No specific itemized details recorded for this order.</div>
-				<% } %>
+				<div style="color: #9ea8bc; font-size: 14px; font-style: italic;">No
+					specific itemized details recorded for this order.</div>
+				<%
+				}
+				%>
 			</div>
 
 			<!-- ORDER FOOTER -->
@@ -809,11 +838,13 @@ body {
 				</div>
 
 				<div class="order-actions">
-					<button type="button" class="btn-invoice" onclick="printReceipt(<%=ord.getOrderID()%>)">
+					<button type="button" class="btn-invoice"
+						onclick="printReceipt(<%=ord.getOrderID()%>)">
 						<i class="fa-solid fa-print"></i> Receipt
 					</button>
-					<a href="menu?restaurantId=<%=ord.getRestaurantID()%>" class="btn-reorder">
-						<i class="fa-solid fa-rotate-right"></i> Reorder
+					<a href="menu?restaurantId=<%=ord.getRestaurantID()%>"
+						class="btn-reorder"> <i class="fa-solid fa-rotate-right"></i>
+						Reorder
 					</a>
 				</div>
 			</div>

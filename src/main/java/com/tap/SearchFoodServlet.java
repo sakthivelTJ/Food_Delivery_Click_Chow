@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
 import com.tap.daoIMP.MenuDAOImp;
 import com.tap.daoIMP.RestaurantDAOImp;
@@ -22,10 +23,9 @@ public class SearchFoodServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("application/json; charset=UTF-8");
-        resp.setHeader("Access-Control-Allow-Origin", "*");
-
-        String query = req.getParameter("q");
+        String ajax = req.getParameter("ajax");
+        String rawQuery = req.getParameter("q");
+        String query = rawQuery;
         if (query != null) {
             query = query.trim().toLowerCase();
         }
@@ -37,16 +37,15 @@ public class SearchFoodServlet extends HttpServlet {
         List<Restaurant> allRestaurants = restaurantDAO.getAllRestaurant();
 
         Map<Integer, String> restaurantNames = new HashMap<>();
+        Map<Integer, Restaurant> restaurantMap = new HashMap<>();
         if (allRestaurants != null) {
             for (Restaurant r : allRestaurants) {
                 restaurantNames.put(r.getRestaurant_id(), r.getName());
+                restaurantMap.put(r.getRestaurant_id(), r);
             }
         }
 
-        PrintWriter out = resp.getWriter();
-        StringBuilder json = new StringBuilder("[");
-
-        boolean first = true;
+        List<Menu> searchResults = new ArrayList<>();
         if (allMenus != null) {
             for (Menu menu : allMenus) {
                 if (query != null && !query.isEmpty()) {
@@ -58,7 +57,18 @@ public class SearchFoodServlet extends HttpServlet {
                         continue;
                     }
                 }
+                searchResults.add(menu);
+            }
+        }
 
+        if ("true".equalsIgnoreCase(ajax)) {
+            resp.setContentType("application/json; charset=UTF-8");
+            resp.setHeader("Access-Control-Allow-Origin", "*");
+            PrintWriter out = resp.getWriter();
+            StringBuilder json = new StringBuilder("[");
+
+            boolean first = true;
+            for (Menu menu : searchResults) {
                 if (!first) {
                     json.append(",");
                 }
@@ -77,11 +87,16 @@ public class SearchFoodServlet extends HttpServlet {
                 json.append("\"imagePath\":\"").append(escapeJson(menu.getImagePath() != null ? menu.getImagePath() : "")).append("\"");
                 json.append("}");
             }
-        }
 
-        json.append("]");
-        out.print(json.toString());
-        out.flush();
+            json.append("]");
+            out.print(json.toString());
+            out.flush();
+        } else {
+            req.setAttribute("searchResults", searchResults);
+            req.setAttribute("restaurantMap", restaurantMap);
+            req.setAttribute("searchQuery", rawQuery == null ? "" : rawQuery);
+            req.getRequestDispatcher("searchResults.jsp").forward(req, resp);
+        }
     }
 
     private String escapeJson(String input) {

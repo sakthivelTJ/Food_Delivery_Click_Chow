@@ -126,6 +126,16 @@ function initTopHeaderSearch() {
         }
     });
 
+    searchInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            const query = searchInput.value.trim();
+            if (query.length > 0) {
+                window.location.href = 'searchFood?q=' + encodeURIComponent(query);
+            }
+        }
+    });
+
     searchInput.addEventListener("focus", () => {
         const query = searchInput.value.trim();
         if (query.length > 0) {
@@ -155,7 +165,7 @@ function initTopHeaderSearch() {
  * Fetch food list from /searchFood endpoint with fallback
  */
 function fetchFoodItemsList() {
-    fetch("searchFood")
+    fetch("searchFood?ajax=true")
         .then(response => {
             if (!response.ok) throw new Error("Search API HTTP " + response.status);
             return response.json();
@@ -396,6 +406,16 @@ function initFoodSearch() {
         renderSearchResults(query);
     });
 
+    searchInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            const query = searchInput.value.trim();
+            if (query.length > 0) {
+                window.location.href = 'searchFood?q=' + encodeURIComponent(query);
+            }
+        }
+    });
+
     searchInput.addEventListener("focus", (e) => {
         const query = e.target.value.toLowerCase().trim();
         if (query) renderSearchResults(query);
@@ -404,12 +424,9 @@ function initFoodSearch() {
     if (searchBtn) {
         searchBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            const query = searchInput.value.toLowerCase().trim();
-            filterPageCards(query);
-            dropdown.style.display = "none";
-            const target = document.getElementById("restaurants-section");
-            if (target) {
-                target.scrollIntoView({ behavior: "smooth" });
+            const query = searchInput.value.trim();
+            if (query.length > 0) {
+                window.location.href = 'searchFood?q=' + encodeURIComponent(query);
             }
         });
     }
