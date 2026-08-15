@@ -5,7 +5,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     initHeroSlider();
     initFoodSearch();
+    initTopHeaderSearch();
     initThemeToggle();
+    handleMenuHighlight();
 });
 
 /**
@@ -48,6 +50,270 @@ function initHeroSlider() {
 }
 
 /**
+ * Helper to resolve appropriate local food asset image by dish name
+ */
+function resolveFoodImage(itemName, imagePath) {
+    if (imagePath && imagePath.trim() !== "" && !imagePath.startsWith("images/menu/") && !imagePath.contains("biryani.png")) {
+        return imagePath;
+    }
+    const name = (itemName || "").toLowerCase();
+    if (name.includes("biryani") || name.includes("rice") || name.includes("pulao") || name.includes("thali") || name.includes("tiffin") || name.includes("dosa") || name.includes("idli")) {
+        return "assets/images/biryani.png";
+    }
+    if (name.includes("burger") || name.includes("sandwich") || name.includes("wrap") || name.includes("roll")) {
+        return "assets/images/burger.png";
+    }
+    if (name.includes("pizza") || name.includes("naan") || name.includes("roti") || name.includes("bread") || name.includes("pasta") || name.includes("kulcha")) {
+        return "assets/images/pizza.png";
+    }
+    if (name.includes("paneer") || name.includes("tikka") || name.includes("tandoori") || name.includes("kebab") || name.includes("chicken") || name.includes("mutton") || name.includes("lamb") || name.includes("starter") || name.includes("curry") || name.includes("masala") || name.includes("fry") || name.includes("rasam") || name.includes("chukka") || name.includes("roast")) {
+        return "assets/images/paneertikka.png";
+    }
+    if (name.includes("sushi") || name.includes("noodle") || name.includes("ramen") || name.includes("fish") || name.includes("seafood") || name.includes("asian") || name.includes("prawn") || name.includes("lobster")) {
+        return "assets/images/sushi.png";
+    }
+    if (name.includes("dessert") || name.includes("cake") || name.includes("ice cream") || name.includes("sweet") || name.includes("shake") || name.includes("coffee") || name.includes("tea") || name.includes("drink") || name.includes("lassi") || name.includes("payasam") || name.includes("kesari") || name.includes("jamun") || name.includes("chocolate")) {
+        return "assets/images/dessert.png";
+    }
+    return "assets/images/paneertikka.png";
+}
+
+/**
+ * Top Right Header Search Bar & Autocomplete Dropdown
+ */
+let globalFoodList = null;
+
+function initTopHeaderSearch() {
+    const wrapper = document.getElementById("header-search-wrapper");
+    const triggerBtn = document.getElementById("header-search-trigger");
+    const searchInput = document.getElementById("top-food-search");
+    const closeBtn = document.getElementById("header-search-close");
+    const dropdown = document.getElementById("top-search-dropdown");
+
+    if (!wrapper || !triggerBtn || !searchInput || !dropdown) return;
+
+    // Toggle search bar expansion
+    triggerBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        wrapper.classList.add("active");
+        setTimeout(() => searchInput.focus(), 150);
+        if (searchInput.value.trim().length > 0) {
+            performTopSearch(searchInput.value.trim());
+        }
+    });
+
+    if (closeBtn) {
+        closeBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            closeTopSearch();
+        });
+    }
+
+    function closeTopSearch() {
+        wrapper.classList.remove("active");
+        dropdown.classList.remove("active");
+        searchInput.value = "";
+    }
+
+    // Input event for live filtering
+    searchInput.addEventListener("input", (e) => {
+        const query = e.target.value.trim();
+        if (query.length > 0) {
+            performTopSearch(query);
+        } else {
+            dropdown.classList.remove("active");
+            dropdown.innerHTML = "";
+        }
+    });
+
+    searchInput.addEventListener("focus", () => {
+        const query = searchInput.value.trim();
+        if (query.length > 0) {
+            performTopSearch(query);
+        }
+    });
+
+    // Close on escape key
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            closeTopSearch();
+        }
+    });
+
+    // Close when clicking outside
+    document.addEventListener("click", (e) => {
+        if (!wrapper.contains(e.target)) {
+            dropdown.classList.remove("active");
+        }
+    });
+
+    // Load full food list asynchronously
+    fetchFoodItemsList();
+}
+
+/**
+ * Fetch food list from /searchFood endpoint with fallback
+ */
+function fetchFoodItemsList() {
+    fetch("searchFood")
+        .then(response => {
+            if (!response.ok) throw new Error("Search API HTTP " + response.status);
+            return response.json();
+        })
+        .then(data => {
+            if (Array.isArray(data) && data.length > 0) {
+                globalFoodList = data;
+            } else {
+                useFallbackFoodList();
+            }
+        })
+        .catch(err => {
+            console.warn("Using fallback food index:", err);
+            useFallbackFoodList();
+        });
+}
+
+function useFallbackFoodList() {
+    globalFoodList = [
+        { menuId: 1, restaurantId: 1, restaurantName: "Paati Veedu", itemName: "Mini Tiffin", description: "Delicious Mini Tiffin", price: 120, rating: 4.8, imagePath: "assets/images/biryani.png" },
+        { menuId: 2, restaurantId: 1, restaurantName: "Paati Veedu", itemName: "Kambu Dosa", description: "Delicious Kambu Dosa", price: 150, rating: 4.7, imagePath: "assets/images/biryani.png" },
+        { menuId: 3, restaurantId: 1, restaurantName: "Paati Veedu", itemName: "Mutton Chukka", description: "Delicious Mutton Chukka", price: 180, rating: 4.9, imagePath: "assets/images/paneertikka.png" },
+        { menuId: 4, restaurantId: 1, restaurantName: "Paati Veedu", itemName: "Chicken Curry", description: "Delicious Chicken Curry", price: 200, rating: 4.8, imagePath: "assets/images/paneertikka.png" },
+        { menuId: 5, restaurantId: 1, restaurantName: "Paati Veedu", itemName: "Filter Coffee", description: "Delicious Filter Coffee", price: 300, rating: 4.8, imagePath: "assets/images/dessert.png" },
+        { menuId: 11, restaurantId: 2, restaurantName: "Avartana", itemName: "Smoked Tomato Rasam", description: "Delicious Smoked Tomato Rasam", price: 120, rating: 4.9, imagePath: "assets/images/paneertikka.png" },
+        { menuId: 12, restaurantId: 2, restaurantName: "Avartana", itemName: "Truffle Dosa", description: "Delicious Truffle Dosa", price: 150, rating: 4.8, imagePath: "assets/images/biryani.png" },
+        { menuId: 13, restaurantId: 2, restaurantName: "Avartana", itemName: "Lobster Curry", description: "Delicious Lobster Curry", price: 180, rating: 5.0, imagePath: "assets/images/sushi.png" },
+        { menuId: 21, restaurantId: 3, restaurantName: "J Hind", itemName: "Paneer Butter Masala", description: "Delicious Paneer Butter Masala", price: 120, rating: 4.8, imagePath: "assets/images/paneertikka.png" },
+        { menuId: 22, restaurantId: 3, restaurantName: "J Hind", itemName: "Veg Biryani", description: "Delicious Veg Biryani", price: 150, rating: 4.7, imagePath: "assets/images/biryani.png" },
+        { menuId: 24, restaurantId: 3, restaurantName: "J Hind", itemName: "Butter Naan", description: "Delicious Butter Naan", price: 200, rating: 4.6, imagePath: "assets/images/pizza.png" },
+        { menuId: 29, restaurantId: 3, restaurantName: "J Hind", itemName: "Gulab Jamun", description: "Delicious Gulab Jamun", price: 350, rating: 4.8, imagePath: "assets/images/dessert.png" },
+        { menuId: 31, restaurantId: 4, restaurantName: "Dakshin", itemName: "Appam & Vegetable Stew", description: "Delicious Appam", price: 120, rating: 4.8, imagePath: "assets/images/biryani.png" },
+        { menuId: 34, restaurantId: 4, restaurantName: "Dakshin", itemName: "Kerala Parotta", description: "Delicious Kerala Parotta", price: 200, rating: 4.8, imagePath: "assets/images/pizza.png" },
+        { menuId: 41, restaurantId: 5, restaurantName: "Southern Spice", itemName: "Ghee Roast Dosa", description: "Delicious Ghee Roast Dosa", price: 120, rating: 4.9, imagePath: "assets/images/biryani.png" },
+        { menuId: 44, restaurantId: 5, restaurantName: "Southern Spice", itemName: "Mutton Biryani", description: "Delicious Mutton Biryani", price: 200, rating: 4.9, imagePath: "assets/images/biryani.png" },
+        { menuId: 53, restaurantId: 6, restaurantName: "Pumpkin Tales", itemName: "Veg Sandwich", description: "Delicious Veg Sandwich", price: 180, rating: 4.6, imagePath: "assets/images/burger.png" },
+        { menuId: 54, restaurantId: 6, restaurantName: "Pumpkin Tales", itemName: "Pasta Alfredo", description: "Delicious Pasta Alfredo", price: 200, rating: 4.8, imagePath: "assets/images/pizza.png" },
+        { menuId: 55, restaurantId: 6, restaurantName: "Pumpkin Tales", itemName: "Margherita Pizza", description: "Delicious Margherita Pizza", price: 220, rating: 4.9, imagePath: "assets/images/pizza.png" },
+        { menuId: 58, restaurantId: 6, restaurantName: "Pumpkin Tales", itemName: "Brownie & Lava Cake", description: "Delicious Brownie", price: 300, rating: 4.9, imagePath: "assets/images/dessert.png" },
+        { menuId: 72, restaurantId: 8, restaurantName: "Madras Spice", itemName: "Hyderabadi Biryani", description: "Delicious Hyderabadi Biryani", price: 150, rating: 4.9, imagePath: "assets/images/biryani.png" },
+        { menuId: 76, restaurantId: 8, restaurantName: "Madras Spice", itemName: "Butter Chicken", description: "Delicious Butter Chicken", price: 250, rating: 4.9, imagePath: "assets/images/paneertikka.png" },
+        { menuId: 95, restaurantId: 10, restaurantName: "Broken Bridge Cafe", itemName: "Veg Cheeseburger", description: "Delicious Veg Burger", price: 220, rating: 4.7, imagePath: "assets/images/burger.png" },
+        { menuId: 99, restaurantId: 10, restaurantName: "Broken Bridge Cafe", itemName: "Blueberry Cheesecake", description: "Delicious Blueberry Cheesecake", price: 350, rating: 4.9, imagePath: "assets/images/dessert.png" }
+    ];
+}
+
+/**
+ * Filter & Render results in the top search dropdown
+ */
+function performTopSearch(query) {
+    const dropdown = document.getElementById("top-search-dropdown");
+    if (!dropdown) return;
+
+    const q = query.toLowerCase();
+    const list = globalFoodList || [];
+
+    const matches = list.filter(item => {
+        const name = (item.itemName || "").toLowerCase();
+        const desc = (item.description || "").toLowerCase();
+        const rest = (item.restaurantName || "").toLowerCase();
+        return name.includes(q) || desc.includes(q) || rest.includes(q);
+    });
+
+    if (matches.length === 0) {
+        dropdown.innerHTML = `
+            <div style="padding: 18px 12px; text-align: center; color: #9ea8bc; font-size: 0.88rem;">
+                <i class="fa-solid fa-magnifying-glass" style="font-size:1.4rem; color:#ff5a36; margin-bottom:8px; display:block;"></i>
+                No food items found matching "<strong>${escapeHtml(query)}</strong>"
+            </div>
+        `;
+    } else {
+        dropdown.innerHTML = `
+            <div style="font-size:0.75rem; font-weight:700; color:#ff5a36; padding: 4px 8px; text-transform: uppercase; letter-spacing:0.5px;">
+                🍕 ${matches.length} Food Result(s)
+            </div>
+            ` + matches.slice(0, 10).map(item => {
+                const img = resolveFoodImage(item.itemName, item.imagePath);
+                const priceStr = typeof item.price === "number" ? "₹" + item.price : item.price;
+                const ratingStr = item.rating ? "★ " + item.rating : "★ 4.8";
+                const targetUrl = `menu?restaurantId=${item.restaurantId}#menu-item-${item.menuId}`;
+                return `
+                    <a href="${targetUrl}" class="top-search-item" onclick="onTopSearchResultClick(event, '${targetUrl}')">
+                        <img src="${img}" alt="${escapeHtml(item.itemName)}" class="top-search-item-img" onerror="this.onerror=null; this.src='assets/images/paneertikka.png';" />
+                        <div class="top-search-item-info">
+                            <h4 class="top-search-item-title">${escapeHtml(item.itemName)}</h4>
+                            <p class="top-search-item-sub"><i class="fa-solid fa-store" style="font-size:0.7rem; color:#ff5a36;"></i> ${escapeHtml(item.restaurantName || "ClickChow")}</p>
+                        </div>
+                        <div class="top-search-item-meta">
+                            <span class="top-search-item-price">${priceStr}</span>
+                            <span class="top-search-item-rating">${ratingStr}</span>
+                        </div>
+                    </a>
+                `;
+            }).join("");
+    }
+
+    dropdown.classList.add("active");
+}
+
+function onTopSearchResultClick(e, targetUrl) {
+    const dropdown = document.getElementById("top-search-dropdown");
+    if (dropdown) dropdown.classList.remove("active");
+
+    // If currently already on menu page, scroll directly if same restaurant, else navigate
+    if (window.location.pathname.endsWith("/menu") || window.location.pathname.endsWith("menu.jsp")) {
+        const urlObj = new URL(targetUrl, window.location.origin);
+        const targetRestId = urlObj.searchParams.get("restaurantId");
+        const currentRestId = new URLSearchParams(window.location.search).get("restaurantId");
+
+        if (targetRestId && currentRestId && targetRestId === currentRestId) {
+            e.preventDefault();
+            const hash = urlObj.hash;
+            if (hash) {
+                window.location.hash = hash;
+                handleMenuHighlight();
+            }
+            return;
+        }
+    }
+}
+
+function escapeHtml(str) {
+    if (!str) return "";
+    return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+}
+
+/**
+ * Handles scrolling to & highlighting target menu card on menu.jsp
+ */
+function handleMenuHighlight() {
+    let highlightId = null;
+    const hash = window.location.hash;
+    if (hash && hash.startsWith("#menu-item-")) {
+        highlightId = hash.replace("#menu-item-", "");
+    } else {
+        const params = new URLSearchParams(window.location.search);
+        highlightId = params.get("highlightId") || params.get("menuId");
+    }
+
+    if (highlightId) {
+        const targetCard = document.getElementById(`menu-item-${highlightId}`);
+        if (targetCard) {
+            setTimeout(() => {
+                targetCard.scrollIntoView({ behavior: "smooth", block: "center" });
+                targetCard.classList.add("highlight-pulse");
+                setTimeout(() => {
+                    targetCard.classList.remove("highlight-pulse");
+                }, 3600);
+            }, 300);
+        }
+    }
+}
+
+/**
  * Real-time Hero Food & Restaurant Search with Live Dropdown Results
  */
 function initFoodSearch() {
@@ -57,23 +323,12 @@ function initFoodSearch() {
 
     if (!searchInput || !searchBox) return;
 
-    // Sample catalogue of food items
-    const foodCatalogue = [
-        { name: "Gourmet Cheeseburger", category: "Burger", price: "₹199", rating: "4.9 ★", img: "assets/images/burger.png", keywords: ["burger", "cheeseburger", "beef", "fast food"] },
-        { name: "Pepperoni Cheese Pizza", category: "Pizza", price: "₹349", rating: "4.8 ★", img: "assets/images/pizza.png", keywords: ["pizza", "pepperoni", "cheese", "italian"] },
-        { name: "Special Hyderabadi Biryani", category: "Biryani", price: "₹299", rating: "5.0 ★", img: "assets/images/biryani.png", keywords: ["biryani", "rice", "chicken", "pulao", "hyderabadi"] },
-        { name: "Fresh Salmon Sushi", category: "Asian", price: "₹450", rating: "4.9 ★", img: "assets/images/sushi.png", keywords: ["sushi", "salmon", "japanese", "asian", "fish"] },
-        { name: "Tandoori Paneer Tikka", category: "Starters", price: "₹240", rating: "4.7 ★", img: "assets/images/paneertikka.png", keywords: ["paneer", "tikka", "tandoori", "starter", "veg"] },
-        { name: "Choco Lava Cake & Desserts", category: "Dessert", price: "₹150", rating: "4.9 ★", img: "assets/images/dessert.png", keywords: ["cake", "dessert", "chocolate", "sweet", "ice cream"] }
-    ];
-
     // Create live dropdown container
     let dropdown = document.createElement("div");
     dropdown.className = "search-results-dropdown";
     dropdown.style.display = "none";
     searchBox.appendChild(dropdown);
 
-    // Filter and render dropdown results
     const renderSearchResults = (query) => {
         if (!query) {
             dropdown.style.display = "none";
@@ -82,31 +337,37 @@ function initFoodSearch() {
             return;
         }
 
-        const matches = foodCatalogue.filter(item => 
-            item.name.toLowerCase().includes(query) ||
-            item.category.toLowerCase().includes(query) ||
-            item.keywords.some(k => k.toLowerCase().includes(query))
-        );
+        const list = globalFoodList || [];
+        const matches = list.filter(item => {
+            const name = (item.itemName || "").toLowerCase();
+            const desc = (item.description || "").toLowerCase();
+            const rest = (item.restaurantName || "").toLowerCase();
+            return name.includes(query) || desc.includes(query) || rest.includes(query);
+        });
 
         if (matches.length > 0) {
             dropdown.innerHTML = `
                 <div style="font-size:13px; font-weight:700; color:#ff5a36; margin-bottom:8px; padding-left:4px;">
                     🍕 ${matches.length} Food Item(s) Found:
                 </div>
-                ` + matches.map(item => `
-                    <a href="#restaurants-section" onclick="handleSearchItemClick('${item.name}')" class="search-item-card">
-                        <img src="${item.img}" alt="${item.name}" class="search-item-img" />
-                        <div class="search-item-details">
-                            <h4>${item.name}</h4>
-                            <p>${item.category} • ${item.rating}</p>
-                        </div>
-                        <div class="search-item-price">${item.price}</div>
-                    </a>
-                `).join("");
+                ` + matches.slice(0, 8).map(item => {
+                    const img = resolveFoodImage(item.itemName, item.imagePath);
+                    const targetUrl = `menu?restaurantId=${item.restaurantId}#menu-item-${item.menuId}`;
+                    return `
+                        <a href="${targetUrl}" class="search-item-card">
+                            <img src="${img}" alt="${escapeHtml(item.itemName)}" class="search-item-img" onerror="this.onerror=null; this.src='assets/images/paneertikka.png';" />
+                            <div class="search-item-details">
+                                <h4>${escapeHtml(item.itemName)}</h4>
+                                <p>${escapeHtml(item.restaurantName || "ClickChow")} • ★ ${item.rating || 4.8}</p>
+                            </div>
+                            <div class="search-item-price">₹${item.price}</div>
+                        </a>
+                    `;
+                }).join("");
         } else {
             dropdown.innerHTML = `
                 <div style="padding:15px; text-align:center; color:#9ea8bc; font-size:14px;">
-                    🔍 No food items found matching "<strong>${query}</strong>"
+                    🔍 No food items found matching "<strong>${escapeHtml(query)}</strong>"
                 </div>
             `;
         }
@@ -115,7 +376,6 @@ function initFoodSearch() {
         filterPageCards(query);
     };
 
-    // Filter restaurant & menu cards rendered on page
     const filterPageCards = (query) => {
         const restaurantCards = document.querySelectorAll(".restaurant-card");
         const menuCards = document.querySelectorAll(".menu-card");
@@ -131,7 +391,6 @@ function initFoodSearch() {
         });
     };
 
-    // Input listener
     searchInput.addEventListener("input", (e) => {
         const query = e.target.value.toLowerCase().trim();
         renderSearchResults(query);
@@ -142,7 +401,6 @@ function initFoodSearch() {
         if (query) renderSearchResults(query);
     });
 
-    // Search button click action
     if (searchBtn) {
         searchBtn.addEventListener("click", (e) => {
             e.preventDefault();
@@ -156,19 +414,11 @@ function initFoodSearch() {
         });
     }
 
-    // Hide dropdown when clicking outside
     document.addEventListener("click", (e) => {
         if (!searchBox.contains(e.target)) {
             dropdown.style.display = "none";
         }
     });
-}
-
-function handleSearchItemClick(itemName) {
-    const target = document.getElementById("restaurants-section");
-    if (target) {
-        target.scrollIntoView({ behavior: "smooth" });
-    }
 }
 
 /**
@@ -178,7 +428,6 @@ function initThemeToggle() {
     const themeBtn = document.getElementById("theme-toggle-btn");
     if (!themeBtn) return;
 
-    // Load saved theme from localStorage
     const savedTheme = localStorage.getItem("clickchow_theme") || "dark";
     applyTheme(savedTheme);
 

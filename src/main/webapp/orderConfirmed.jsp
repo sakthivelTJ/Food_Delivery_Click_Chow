@@ -30,6 +30,7 @@ body {
 	background: #090b12;
 	color: #fff;
 	overflow: hidden;
+	overflow-x :auto;
 }
 
 /* Background Glow */
@@ -99,6 +100,7 @@ body::after {
 }
 
 .card {
+	margin-top:400px;
 	width: 700px;
 	max-width: 95%;
 	background: #181d2b;

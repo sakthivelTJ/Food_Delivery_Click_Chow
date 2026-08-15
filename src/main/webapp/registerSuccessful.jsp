@@ -288,12 +288,6 @@
 
 <body>
 
-    <!-- TOP CORNER BACK NAVIGATION BUTTON BELOW HEADER SECTION -->
-    <div class="top-back-bar" style="position: absolute; top: 20px; left: 20px; z-index: 100;">
-        <a href="login.jsp" class="btn-back-nav" id="backToLoginBtn">
-            <i class="fa-solid fa-arrow-left"></i> <span>Login</span>
-        </a>
-    </div>
 
 <div class="container">
 

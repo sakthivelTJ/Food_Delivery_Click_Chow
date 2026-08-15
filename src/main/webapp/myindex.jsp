@@ -358,6 +358,20 @@
 
 
 			<div class="header-actions">
+				<!-- Top Right Food Search Bar -->
+				<div class="header-search-wrapper" id="header-search-wrapper">
+					<button type="button" class="header-search-trigger" id="header-search-trigger" title="Search Food">
+						<i class="fa-solid fa-magnifying-glass"></i>
+					</button>
+					<div class="header-search-box" id="header-search-box">
+						<i class="fa-solid fa-magnifying-glass search-inner-icon"></i>
+						<input type="text" id="top-food-search" class="top-food-search-input" placeholder="Search food (e.g. biryani, pizza...)" autocomplete="off" />
+						<button type="button" class="header-search-close" id="header-search-close">
+							<i class="fa-solid fa-xmark"></i>
+						</button>
+					</div>
+					<div class="top-search-dropdown" id="top-search-dropdown"></div>
+				</div>
 				<button class="theme-toggle" id="theme-toggle-btn"
 					aria-label="Toggle Theme">
 					<i class="fa-solid fa-moon"></i>

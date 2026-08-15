@@ -104,12 +104,6 @@
     </div>
 </div>
 
-<!-- TOP CORNER BACK NAVIGATION BUTTON BELOW HEADER SECTION -->
-<div class="top-back-bar">
-    <a href="deliveryLogin.jsp" class="btn-back-nav" id="backToDeliveryLoginBtn">
-        <i class="fa-solid fa-arrow-left"></i> <span>Delivery Login</span>
-    </a>
-</div>
 
 <div class="app-container">
 

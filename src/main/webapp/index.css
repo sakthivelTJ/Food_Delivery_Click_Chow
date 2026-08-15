@@ -2642,6 +2642,266 @@ img {
   box-shadow: 0 12px 25px rgba(255, 90, 54, 0.55);
 }
 
+/* ==========================================================================
+   Header Top Right Food Search Bar & Autocomplete Dropdown
+   ========================================================================== */
+.header-search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.header-search-trigger {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--border-radius-full, 9999px);
+  background: var(--bg-card, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+  color: var(--text-primary, #ffffff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.header-search-trigger:hover {
+  background: var(--bg-card-hover, rgba(255, 255, 255, 0.12));
+  border-color: var(--primary, #ff5a36);
+  color: var(--primary, #ff5a36);
+  transform: scale(1.05);
+}
+
+.header-search-box {
+  display: flex;
+  align-items: center;
+  background: var(--bg-card, rgba(20, 24, 38, 0.95));
+  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.15));
+  border-radius: 30px;
+  padding: 4px 12px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  backdrop-filter: blur(16px);
+  z-index: 1050;
+}
+
+.header-search-wrapper.active .header-search-box {
+  width: 320px;
+  opacity: 1;
+  pointer-events: auto;
+  border-color: #ff5a36;
+  box-shadow: 0 8px 32px rgba(255, 90, 54, 0.25), 0 0 0 1px rgba(255, 90, 54, 0.4);
+}
+
+.header-search-wrapper.active .header-search-trigger {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.search-inner-icon {
+  color: #ff5a36;
+  font-size: 1rem;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.top-food-search-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary, #ffffff);
+  font-size: 0.95rem;
+  font-family: inherit;
+  padding: 6px 0;
+}
+
+.top-food-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.88rem;
+}
+
+[data-theme="light"] .top-food-search-input::placeholder {
+  color: rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="light"] .header-search-box {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.header-search-close {
+  background: transparent;
+  border: none;
+  color: #9ea8bc;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 4px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+  flex-shrink: 0;
+}
+
+.header-search-close:hover {
+  color: #ff5a36;
+}
+
+/* Top Search Autocomplete Dropdown */
+.top-search-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 360px;
+  max-height: 420px;
+  overflow-y: auto;
+  background: rgba(15, 18, 28, 0.98);
+  border: 1px solid rgba(255, 90, 54, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 90, 54, 0.15);
+  backdrop-filter: blur(20px);
+  z-index: 1100;
+  display: none;
+  flex-direction: column;
+  padding: 10px;
+  gap: 6px;
+}
+
+[data-theme="light"] .top-search-dropdown {
+  background: rgba(255, 255, 255, 0.98);
+  border-color: rgba(255, 90, 54, 0.3);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12), 0 0 20px rgba(255, 90, 54, 0.1);
+}
+
+.top-search-dropdown.active {
+  display: flex;
+  animation: dropdownFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.top-search-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--text-primary, #ffffff);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
+}
+
+[data-theme="light"] .top-search-item {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.05);
+  color: #1a1a2e;
+}
+
+.top-search-item:hover {
+  background: rgba(255, 90, 54, 0.12);
+  border-color: rgba(255, 90, 54, 0.4);
+  transform: translateX(4px);
+}
+
+.top-search-item-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.top-search-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.top-search-item-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-primary, #ffffff);
+  margin: 0 0 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+[data-theme="light"] .top-search-item-title {
+  color: #111827;
+}
+
+.top-search-item-sub {
+  font-size: 0.78rem;
+  color: #9ea8bc;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.top-search-item-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.top-search-item-price {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #ff5a36;
+}
+
+.top-search-item-rating {
+  font-size: 0.75rem;
+  color: #ffb800;
+  font-weight: 600;
+}
+
+/* Card Pulse Glow Highlight Effect */
+@keyframes menuCardGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 90, 54, 0.8), 0 10px 30px rgba(255, 90, 54, 0.4);
+    transform: scale(1.03);
+  }
+  50% {
+    box-shadow: 0 0 35px 10px rgba(255, 90, 54, 0.9), 0 15px 40px rgba(255, 90, 54, 0.6);
+    transform: scale(1.05);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 90, 54, 0);
+    transform: scale(1);
+  }
+}
+
+.menu-card.highlight-pulse {
+  animation: menuCardGlow 1.8s ease-in-out 2 !important;
+  border: 2px solid #ff5a36 !important;
+}
+
+
 
 
 
