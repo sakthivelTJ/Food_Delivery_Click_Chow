@@ -494,10 +494,6 @@ ClickChow/
 
 ![Checkout](screenshots/checkout.png)
 
-### 📦 Order Tracking
-
-![Order Tracking](screenshots/order-tracking.png)
-
 ### ⚙️ Admin Dashboard
 
 ![Admin Dashboard](screenshots/admin-dashboard.png)
