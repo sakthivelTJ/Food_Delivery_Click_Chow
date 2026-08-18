@@ -1,134 +1,688 @@
-🍔 ClickChow — Online Food Delivery Platform
+# 🍔 ClickChow
+
+### A Modern Full-Stack Food Delivery Platform Built with Java EE
+
+<p align="center">
+  <strong>Discover • Order • Track • Deliver</strong>
+</p>
+
+<p align="center">
+  A production-ready food delivery platform with role-based portals, smart search, intelligent cart management, order tracking, secure authentication, and Docker-ready cloud deployment.
+</p>
+
+<p align="center">
+
+[![Java](https://img.shields.io/badge/Java-21-orange?style=for-the-badge\&logo=openjdk)](https://www.oracle.com/java/)
+[![Jakarta EE](https://img.shields.io/badge/Jakarta%20EE-Servlet%206.0-blue?style=for-the-badge)](https://jakarta.ee/)
+[![Tomcat](https://img.shields.io/badge/Tomcat-10.1-F8DC75?style=for-the-badge\&logo=apachetomcat\&logoColor=black)](https://tomcat.apache.org/)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0+-4479A1?style=for-the-badge\&logo=mysql\&logoColor=white)](https://www.mysql.com/)
+[![Maven](https://img.shields.io/badge/Maven-3.9+-C71A36?style=for-the-badge\&logo=apachemaven\&logoColor=white)](https://maven.apache.org/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge\&logo=docker\&logoColor=white)](https://www.docker.com/)
+
+</p>
+
+<p align="center">
+
+**[🌐 Live Demo](#-live-demo)** •
+**[📸 Screenshots](#-screenshots)** •
+**[🛠️ Tech Stack](#️-technology-stack)** •
+**[🚀 Getting Started](#-getting-started)**
+
+</p>
+
+---
+
+## ✨ Overview
+
+**ClickChow** is a full-stack online food delivery platform developed using **Java EE, JSP, Servlets, JDBC, MySQL, HTML, CSS, and JavaScript**.
+
+The application provides a complete food ordering ecosystem connecting:
+
+* 🛍️ Customers
+* ⚙️ Administrators
+* 🚴 Delivery Partners
+* 🍽️ Restaurants
+* 📦 Orders
+* 💳 Payments
+
+The platform follows a clean **MVC + DAO architecture**, providing separation between presentation, controller logic, data access, and database operations.
+
+Designed with a modern **dark-mode glassmorphism interface**, ClickChow combines a polished frontend experience with a structured Java backend and cloud-ready Docker deployment.
+
+---
+
+# 🌟 Why ClickChow?
+
+| Capability               | What ClickChow Provides                           |
+| ------------------------ | ------------------------------------------------- |
+| 🎨 Modern UI             | Dark mode, glassmorphism, gradients & animations  |
+| 👥 Multi-Role System     | Customer, Admin & Delivery Partner portals        |
+| 🔍 Smart Search          | Real-time food & restaurant search                |
+| 🛒 Intelligent Cart      | Restaurant collision prevention & live updates    |
+| 📦 Order Tracking        | Complete order lifecycle tracking                 |
+| 🔐 Secure Authentication | BCrypt + sessions + RBAC                          |
+| 📊 Admin Analytics       | Revenue & order monitoring                        |
+| 🚴 Delivery System       | Order assignment & delivery workflow              |
+| 📱 Responsive Design     | Mobile, tablet & desktop support                  |
+| 🐳 Docker Ready          | Multi-stage containerized deployment              |
+| ☁️ Cloud Ready           | Supports environment-based database configuration |
+
+---
+
+# 🎯 Core Features
+
+## 🛍️ Customer Portal
+
+### 🍽️ Restaurant Discovery
+
+* Browse available restaurants
+* Restaurant ratings
+* Cuisine information
+* Estimated delivery time
+* Restaurant availability
+* Featured restaurant section
+
+### 🔍 Smart Food Search
+
+* Global food search
+* Restaurant search
+* Live autocomplete
+* Search suggestions
+* Instant search results
+* Direct navigation to restaurants/menu items
+
+### 🍔 Menu Browsing
+
+* Restaurant-specific menus
+* Food images
+* Food descriptions
+* Item ratings
+* Dynamic pricing
+* Availability status
+* In-stock / out-of-stock handling
+
+### 🛒 Smart Cart
+
+* Slide-out cart drawer
+* Add/remove items
+* Increase/decrease quantity
+* Real-time cart updates
+* Delivery fee calculation
+* GST calculation
+* Grand total calculation
+* Restaurant collision prevention
+* Multi-tab synchronization
+
+> 💡 ClickChow prevents customers from accidentally mixing items from different restaurants inside the same cart.
+
+### 💳 Checkout & Payments
+
+Supported payment options:
+
+* 💵 Cash on Delivery
+* 📱 UPI
+
+  * Google Pay
+  * PhonePe
+  * Paytm
+* 💳 Credit Card
+* 💳 Debit Card
+
+### 📦 Order Tracking
+
+Track the complete order lifecycle:
+
+```text
+Pending
+   ↓
+Confirmed
+   ↓
+Preparing
+   ↓
+Out for Delivery
+   ↓
+Delivered
+```
+
+### 🔄 Reorder
+
+Customers can quickly reorder previously purchased items directly from their order history.
+
+### 🧾 Printable Invoices
+
+Generate and print browser-based order receipts containing:
+
+* Order details
+* Customer information
+* Restaurant information
+* Ordered items
+* Quantity
+* Pricing
+* Taxes
+* Delivery charges
+* Final amount
+
+### 👤 Profile Management
+
+Customers can manage:
+
+* Username
+* Email
+* Delivery address
+* Password
+
+Passwords are securely re-hashed using BCrypt when changed.
+
+### 🌙 Theme System
+
+* Dark mode
+* Light mode
+* LocalStorage persistence
+* Smooth theme transitions
+
+---
+
+# ⚙️ Admin Portal
+
+The Admin Dashboard provides centralized control over the entire platform.
+
+### 🍽️ Restaurant Management
+
+* Add restaurants
+* Edit restaurant details
+* Manage availability
+* Update restaurant information
+
+### 🍔 Menu Management
+
+Complete CRUD operations:
+
+* Add menu items
+* Edit menu items
+* Update prices
+* Update descriptions
+* Manage images
+* Toggle stock availability
+* Delete menu items
+
+### 👥 User Management
+
+Administrators can:
+
+* View users
+* Create users
+* Delete accounts
+* Assign roles
+* Manage Customer accounts
+* Manage Admin accounts
+* Manage Delivery Partner accounts
+
+Self-deletion protection prevents administrators from accidentally deleting their own active account.
+
+### 📦 Order Fulfillment
+
+Admins can:
+
+* View platform-wide orders
+* Monitor order statuses
+* Update order status
+* Track pending orders
+* Track completed orders
+* Monitor delivery progress
+
+### 📊 Financial Dashboard
+
+Track:
+
+* Total revenue
+* Total orders
+* Pending orders
+* Completed orders
+* Platform order volume
+* Revenue performance
+
+---
+
+# 🚴 Delivery Partner Portal
+
+ClickChow includes a dedicated delivery management system.
+
+### 🟢 Duty Management
+
+Delivery partners can switch between:
+
+```text
+🟢 ONLINE
+🔴 OFFLINE
+```
+
+The dashboard provides a live availability indicator.
+
+### 📡 Live Order Feed
+
+When online, the application automatically polls for available delivery orders.
+
+**Polling interval:** 4 seconds
+
+### 📦 Order Acceptance
+
+Delivery partners can:
+
+* View available orders
+* Accept orders
+* View restaurant pickup information
+* View customer delivery information
+* Access customer contact information
+
+### 🚚 Delivery Tracking
+
+Three-stage delivery workflow:
+
+```text
+Accepted
+   ↓
+Picked Up
+   ↓
+Delivered
+```
+
+### 📞 Click-to-Call
+
+Customer phone numbers can be accessed through a direct phone link.
+
+### 💰 Earnings Dashboard
+
+Delivery partners can view:
+
+* Daily earnings
+* Completed deliveries
+* Delivery history
+* Commission breakdown
+
+The platform calculates a **15% delivery partner commission** on delivered orders.
+
+---
+
+# 🔐 Security
+
+Security is implemented throughout the application.
+
+### 🔒 BCrypt Password Hashing
+
+Passwords are never stored as plain text.
+
+The application uses **jBCrypt** for secure password hashing.
+
+### 🔑 Session Authentication
+
+Server-side session management is used for authenticated users.
+
+### 👮 Role-Based Access Control
+
+Protected functionality is separated by role:
+
+```text
+CUSTOMER
+   │
+   ├── Browse
+   ├── Search
+   ├── Cart
+   ├── Checkout
+   └── Orders
 
 
-A full-stack food delivery web application built with Java EE, featuring three role-based portals — Customer, Admin & Delivery Partner — with a modern glassmorphism UI, real-time order tracking, and cloud-ready Docker deployment.
+ADMIN
+   │
+   ├── Restaurants
+   ├── Menus
+   ├── Users
+   ├── Orders
+   └── Analytics
 
-🌐 Live Demo  ·  📸 
-Screenshots
-  ·  🛠️ 
-Tech Stack
-  ·  🚀 
-Getting Started
 
-📖 About The Project
-ClickChow is a production-ready, end-to-end online food delivery platform where customers can browse restaurants, search dishes, build carts, and place orders with multiple payment options — all through a sleek, responsive dark-mode interface.
+DELIVERY PARTNER
+   │
+   ├── Duty Status
+   ├── Available Orders
+   ├── Delivery Tracking
+   └── Earnings
+```
 
-The platform follows the MVC (Model-View-Controller) architecture with a clean DAO (Data Access Object) pattern, ensuring a well-structured separation between the presentation layer, business logic, and database operations.
+### 🛡️ SQL Injection Protection
 
-🎯 What Makes ClickChow Special?
-🎨 Stunning UI/UX — Dark theme with sunset gradients, glassmorphism effects, animated hero carousel with looping background video, micro-animations, and smooth transitions throughout
-👥 Three Dedicated Portals — Separate dashboards for Customers, Admins, and Delivery Partners with role-based access control
-🔍 Real-Time Search — Live autocomplete search across all food items and restaurants with deep-linking to specific menu items
-🛒 Smart Cart System — Slide-out cart drawer with collision detection (prevents mixing items from different restaurants), real-time quantity adjusters, and multi-tab synchronization
-📱 Fully Responsive — Pixel-perfect layouts across Mobile, Tablet, and Desktop devices
-🐳 Cloud-Ready — Dockerized multi-stage build with automatic cloud database detection (Railway, Render, Heroku, etc.)
-✨ Features
-🛍️ Customer Portal
-Feature	Description
-Restaurant Discovery	Browse featured restaurants with ratings, cuisine tags, and estimated delivery times
-Food Search	Global real-time autocomplete search across all menus with instant results
-Menu Browsing	View restaurant-specific menus with dish images, ratings, prices, and descriptions
-Smart Cart	Slide-out cart drawer with quantity controls, delivery fee & GST breakdown, and restaurant collision prevention
-Secure Checkout	Multiple payment methods — Cash on Delivery, UPI (GPay/PhonePe/Paytm), Credit/Debit Card
-Order Tracking	Full order history with status tracking (Pending → Confirmed → Preparing → Out for Delivery → Delivered)
-Reorder	One-click reorder from order history
-Printable Invoices	Generate and print order receipts directly from the browser
-Profile Management	Edit username, email, delivery address, and password with secure BCrypt re-hashing
-Theme Toggle	Switch between Dark and Light mode with localStorage persistence
-⚙️ Admin Dashboard
-Feature	Description
-Restaurant Management	Add, edit, and manage restaurant profiles and availability
-Menu Management	Full CRUD for menu items — add dishes, update prices, toggle in-stock/out-of-stock
-User Management	View all users, assign roles (Customer/Admin/Delivery Partner), create/delete accounts with self-deletion protection
-Order Fulfillment	Monitor all orders platform-wide, update statuses in real-time, view revenue analytics
-Financial Dashboard	Track total platform revenue, order volumes, pending vs. completed orders
-🚴 Delivery Partner Portal
-Feature	Description
-Duty Toggle	Go Online/Offline with live pulse indicator
-Order Feed	Auto-polling every 4 seconds for new available orders when on duty
-Order Acceptance	One-click "Take Order" with customer pickup and drop-off details
-Delivery Tracking	3-stage progress tracker — Accepted → Picked Up → Delivered
-Click-to-Call	Direct phone link to contact the customer
-Earnings Dashboard	Track daily earnings with 15% partner commission on delivered orders
-Delivery History	Complete log of past deliveries with earnings breakdown
-🔐 Security
-BCrypt Password Hashing — All passwords are securely hashed using jBCrypt
-Session-Based Authentication — Server-side session management with role validation
-Role-Based Access Control (RBAC) — Protected routes for Admin, Customer, and Delivery Partner
-SQL Injection Protection — Parameterized prepared statements across all DAO operations
-XSS Prevention — JSON and HTML escaping on dynamic content
-Cookie-Based "Remember Me" — Persistent login functionality
-🛠️ Tech Stack
-Layer	Technology
-Language	Java 21
-Backend Framework	Jakarta Servlet 6.0 + Jakarta JSP 3.1
-Server	Apache Tomcat 10.1
-Database	MySQL 8.0+ with MySQL Connector/J 9.2.0
-Security	jBCrypt 0.4 for password hashing
-Frontend	HTML5, CSS3 (Grid/Flexbox), Vanilla ES6 JavaScript
-UI Libraries	FontAwesome 6, Google Fonts (Outfit)
-Build Tool	Apache Maven
-Containerization	Docker (Multi-stage build)
-Architecture	MVC + DAO Pattern
-🏗️ Project Architecture
+DAO operations use parameterized `PreparedStatement` queries.
 
+### 🧹 XSS Protection
+
+Dynamic content is protected through JSON and HTML escaping where required.
+
+### 🍪 Remember Me
+
+Cookie-based persistent login functionality allows users to remain authenticated across sessions.
+
+---
+
+# 🏗️ Architecture
+
+ClickChow follows the **MVC + DAO architecture**.
+
+```text
+                    ┌──────────────────────┐
+                    │      Browser         │
+                    │ HTML / CSS / JS / JSP│
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │      Servlets        │
+                    │     Controllers      │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │     DAO Layer        │
+                    │ Database Operations  │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │       JDBC           │
+                    │ Connection Manager   │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │       MySQL          │
+                    │ Database + Seed Data │
+                    └──────────────────────┘
+```
+
+### 📁 Project Structure
+
+```text
 ClickChow/
-├── src/main/java/com/tap/
-│   ├── model/                    # POJOs — User, Restaurant, Menu, Order, Cart
-│   ├── dao/                      # DAO Interfaces
-│   ├── daoIMP/                   # DAO Implementations (JDBC)
-│   ├── utility/                  # DB Connection Manager (Cloud + Local)
-│   ├── *Servlet.java             # Controllers — Login, Cart, Checkout, Search, Admin, Delivery
 │
-├── src/main/webapp/
-│   ├── index.jsp                 # Landing Page (Hero video, carousel, featured restaurants)
-│   ├── menu.jsp                  # Restaurant Menu with side-cart drawer
-│   ├── cart.jsp                  # Full Cart Management Page
-│   ├── checkOut.jsp              # Checkout & Payment Selection
-│   ├── orderConfirmed.jsp        # Order Confirmation with animation
-│   ├── orderHistory.jsp          # Order History & Tracking
-│   ├── searchResults.jsp         # Search Results Display
-│   ├── login.jsp                 # Multi-role Login (Customer/Admin/Delivery)
-│   ├── register.html             # User Registration
-│   ├── editProfile.jsp           # Profile Management
-│   ├── adminMenu.jsp             # Admin — Menu & Restaurant Management
-│   ├── adminUsers.jsp            # Admin — User & Role Management
-│   ├── adminCart.jsp              # Admin — Order & Revenue Dashboard
-│   ├── deliveryApp.jsp           # Delivery Partner Dashboard
-│   ├── app.js                    # Core JS — Search, Carousel, Theme, Animations
-│   ├── index.css                 # Main Stylesheet (74KB+ of custom CSS)
-│   └── assets/images/            # Food & Restaurant Images
+├── src/
+│   └── main/
+│       ├── java/
+│       │   └── com/tap/
+│       │       ├── model/
+│       │       │   ├── User.java
+│       │       │   ├── Restaurant.java
+│       │       │   ├── Menu.java
+│       │       │   ├── Order.java
+│       │       │   └── Cart.java
+│       │       │
+│       │       ├── dao/
+│       │       │   └── DAO Interfaces
+│       │       │
+│       │       ├── daoIMP/
+│       │       │   └── DAO Implementations
+│       │       │
+│       │       ├── utility/
+│       │       │   └── DBconnection.java
+│       │       │
+│       │       └── *Servlet.java
+│       │
+│       └── webapp/
+│           ├── index.jsp
+│           ├── menu.jsp
+│           ├── cart.jsp
+│           ├── checkOut.jsp
+│           ├── orderConfirmed.jsp
+│           ├── orderHistory.jsp
+│           ├── searchResults.jsp
+│           ├── login.jsp
+│           ├── register.html
+│           ├── editProfile.jsp
+│           ├── adminMenu.jsp
+│           ├── adminUsers.jsp
+│           ├── adminCart.jsp
+│           ├── deliveryApp.jsp
+│           ├── app.js
+│           ├── index.css
+│           └── assets/
+│               └── images/
 │
-├── schema.sql                    # Database Schema + Seed Data
-├── Dockerfile                    # Multi-stage Docker Build
-└── pom.xml                       # Maven Build Configuration
-🚀 Getting Started
-Prerequisites
-Java 21 or higher
-Apache Maven 3.9+
-MySQL 8.0+
-Apache Tomcat 10.1+ (or use Docker)
-Local Setup
-bash
+├── schema.sql
+├── Dockerfile
+├── pom.xml
+└── README.md
+```
 
-# 1. Clone the repository
+---
+
+# 🛠️ Technology Stack
+
+| Layer              | Technology                         |
+| ------------------ | ---------------------------------- |
+| 💻 Language        | Java 21                            |
+| 🏛️ Backend        | Jakarta Servlet 6.0                |
+| 🖥️ View           | Jakarta JSP 3.1                    |
+| 🌐 Server          | Apache Tomcat 10.1                 |
+| 🗄️ Database       | MySQL 8.0+                         |
+| 🔌 Database Driver | MySQL Connector/J 9.2.0            |
+| 🔐 Security        | jBCrypt 0.4                        |
+| 🎨 Frontend        | HTML5, CSS3                        |
+| ⚡ Client Logic     | Vanilla JavaScript ES6             |
+| 🎨 Icons           | Font Awesome 6                     |
+| 🔤 Typography      | Google Fonts — Outfit              |
+| 🏗️ Architecture   | MVC + DAO                          |
+| 📦 Build           | Apache Maven                       |
+| 🐳 Deployment      | Docker                             |
+| ☁️ Cloud           | Environment-based DB Configuration |
+
+---
+
+# 📸 Screenshots
+
+> Add your actual screenshots below to make the repository visually impressive.
+
+### 🏠 Landing Page
+
+![ClickChow Home](screenshots/home.png)
+
+### 🍽️ Restaurant Menu
+
+![Restaurant Menu](screenshots/menu.png)
+
+### 🛒 Smart Cart
+
+![Shopping Cart](screenshots/cart.png)
+
+### 💳 Checkout
+
+![Checkout](screenshots/checkout.png)
+
+### 📦 Order Tracking
+
+![Order Tracking](screenshots/order-tracking.png)
+
+### ⚙️ Admin Dashboard
+
+![Admin Dashboard](screenshots/admin-dashboard.png)
+
+### 🚴 Delivery Dashboard
+
+![Delivery Dashboard](screenshots/delivery-dashboard.png)
+
+---
+
+# 🎬 UI Highlights
+
+ClickChow focuses heavily on user experience.
+
+### Visual Design
+
+* 🌑 Dark-first interface
+* 🌅 Sunset gradient accents
+* 🪟 Glassmorphism cards
+* 🎞️ Animated hero background video
+* 🎠 Hero carousel
+* ✨ Micro animations
+* 🔄 Smooth transitions
+* 🧊 Modern translucent components
+* 📱 Responsive layouts
+
+### Responsive Design
+
+The interface is designed for:
+
+```text
+📱 Mobile
+   ↓
+📲 Tablet
+   ↓
+💻 Desktop
+   ↓
+🖥️ Large Screens
+```
+
+---
+
+# 🔄 Complete Customer Workflow
+
+```text
+┌─────────────┐
+│   Browse    │
+│    Home     │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│  Search /   │
+│ Restaurant  │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│    View     │
+│    Menu     │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│ Add Items   │
+│ to Cart     │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│  Checkout   │
+│  & Payment  │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│    Order    │
+│  Confirmed  │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│   Admin     │
+│   Updates   │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│  Delivery   │
+│   Partner   │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│  Delivered  │
+│     ✅      │
+└─────────────┘
+```
+
+---
+
+# 🚀 Getting Started
+
+## Prerequisites
+
+Install the following:
+
+* Java 21+
+* Apache Maven 3.9+
+* MySQL 8.0+
+* Apache Tomcat 10.1+
+
+Or use Docker.
+
+---
+
+## 💻 Local Installation
+
+### 1️⃣ Clone Repository
+
+```bash
 git clone https://github.com/sakthivelTJ/Food_Delivery_Click_Chow.git
-cd Food_Delivery_Click_Chow
-# 2. Create the database and seed data
-mysql -u root -p < schema.sql
-# 3. Update DB credentials in src/main/java/com/tap/utility/DBconnection.java
-#    (or set environment variables: MYSQLHOST, MYSQLPORT, MYSQLDATABASE, MYSQLUSER, MYSQLPASSWORD)
-# 4. Build with Maven
-mvn clean package
-# 5. Deploy ROOT.war to Tomcat's webapps/ directory
-cp target/ROOT.war $TOMCAT_HOME/webapps/
-# 6. Start Tomcat and visit
-#    http://localhost:8080
-Docker Setup
-bash
 
-# Build and run with Docker
+cd Food_Delivery_Click_Chow
+```
+
+### 2️⃣ Create Database
+
+```bash
+mysql -u root -p < schema.sql
+```
+
+### 3️⃣ Configure Database
+
+Update:
+
+```text
+src/main/java/com/tap/utility/DBconnection.java
+```
+
+Alternatively, configure environment variables:
+
+```text
+MYSQLHOST
+MYSQLPORT
+MYSQLDATABASE
+MYSQLUSER
+MYSQLPASSWORD
+```
+
+### 4️⃣ Build Project
+
+```bash
+mvn clean package
+```
+
+### 5️⃣ Deploy to Tomcat
+
+Copy the generated WAR file:
+
+```bash
+cp target/ROOT.war $TOMCAT_HOME/webapps/
+```
+
+### 6️⃣ Start Tomcat
+
+Open:
+
+```text
+http://localhost:8080
+```
+
+---
+
+# 🐳 Docker Deployment
+
+Build the Docker image:
+
+```bash
 docker build -t clickchow .
+```
+
+Run the application:
+
+```bash
 docker run -p 8080:8080 \
   -e MYSQLHOST=your-db-host \
   -e MYSQLPORT=3306 \
@@ -136,34 +690,195 @@ docker run -p 8080:8080 \
   -e MYSQLUSER=your-user \
   -e MYSQLPASSWORD=your-password \
   clickchow
-Demo Accounts
-Role	Email	Password
-Admin	admin@clickchow.com	admin123
-Delivery Partner	delivery@clickchow.com	delivery123
-Customer	customer@clickchow.com	customer123
-🔄 How It Works — User Flow
+```
 
-Customer Journey:
-┌──────────┐    ┌───────────┐    ┌──────────┐    ┌──────────┐    ┌───────────┐
-│  Browse   │───▶│  Select   │───▶│  Add to  │───▶│ Checkout │───▶│  Order    │
-│  Home     │    │Restaurant │    │   Cart   │    │ & Pay    │    │ Confirmed │
-└──────────┘    └───────────┘    └──────────┘    └──────────┘    └───────────┘
-                                                                       │
-Admin Updates Status ◀────────────────────────────────────────────────┘
-       │
-       ▼
-┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-│   Pending    │───▶│  Preparing   │───▶│  Out for     │───▶ ✅ Delivered
-│              │    │              │    │  Delivery    │
-└──────────────┘    └──────────────┘    └──────────────┘
-                                              │
-                          Delivery Partner ◀──┘
-                          Picks Up & Delivers
-👨‍💻 Author
-Sakthivel TJ
+The application will be available at:
 
-GitHub: @sakthivelTJ
-📄 License
-This project is open source and available for learning and reference purposes.
+```text
+http://localhost:8080
+```
 
-⭐ If you found this project useful, please give it a star! ⭐
+---
+
+# ☁️ Cloud Deployment
+
+ClickChow is designed for cloud deployment using environment-based database configuration.
+
+The application can be configured for managed MySQL services such as:
+
+* Railway
+* Render
+* Heroku-compatible environments
+* Other MySQL cloud providers
+
+Database credentials should be supplied through environment variables rather than hardcoded production credentials.
+
+---
+
+# 🔑 Demo Accounts
+
+| Role                | Email                    | Password      |
+| ------------------- | ------------------------ | ------------- |
+| 👑 Admin            | `admin@clickchow.com`    | `admin123`    |
+| 🚴 Delivery Partner | `delivery@clickchow.com` | `delivery123` |
+| 🛍️ Customer        | `customer@clickchow.com` | `customer123` |
+
+> ⚠️ Demo credentials are provided only for local/testing environments. Do not use these credentials in production.
+
+---
+
+# 📊 Application Modules
+
+```text
+                    CLICKCHOW
+                        │
+       ┌────────────────┼────────────────┐
+       │                │                │
+       ▼                ▼                ▼
+   CUSTOMER           ADMIN         DELIVERY
+       │                │                │
+       ├─ Search        ├─ Users       ├─ Duty
+       ├─ Restaurants   ├─ Restaurants ├─ Orders
+       ├─ Menu          ├─ Menus       ├─ Pickup
+       ├─ Cart          ├─ Orders      ├─ Delivery
+       ├─ Checkout      ├─ Revenue     └─ Earnings
+       ├─ Orders        └─ Analytics
+       └─ Profile
+```
+
+---
+
+# 💡 Key Technical Highlights
+
+Some of the most important engineering concepts implemented in ClickChow:
+
+### Backend
+
+* Java 21
+* Jakarta Servlet
+* JSP
+* JDBC
+* DAO pattern
+* MVC architecture
+* Session management
+* Role-based authorization
+* Prepared statements
+* Environment-based configuration
+
+### Frontend
+
+* Responsive CSS
+* CSS Grid
+* Flexbox
+* Vanilla ES6 JavaScript
+* LocalStorage
+* AJAX-style asynchronous requests
+* Dynamic DOM updates
+* Search autocomplete
+* UI animations
+
+### Database
+
+* MySQL
+* Relational data modeling
+* Foreign key relationships
+* CRUD operations
+* Prepared statements
+* Transaction-oriented order processing
+
+### Deployment
+
+* Maven packaging
+* WAR deployment
+* Docker multi-stage build
+* Environment variables
+* Cloud database compatibility
+
+---
+
+# 🧠 What I Learned Building ClickChow
+
+Building ClickChow involved practical implementation of:
+
+* Full-stack Java EE development
+* MVC architecture
+* DAO design pattern
+* JDBC database integration
+* Authentication & authorization
+* Secure password handling
+* Role-based access control
+* REST-style asynchronous interactions
+* Dynamic frontend development
+* Shopping cart architecture
+* Order lifecycle management
+* Database-driven UI
+* Docker containerization
+* Cloud deployment configuration
+* Responsive UI engineering
+* Debugging production-style backend issues
+
+---
+
+# 🗺️ Future Improvements
+
+Potential future enhancements include:
+
+* 📍 GPS-based delivery tracking
+* 🗺️ Google Maps integration
+* 🔔 Push notifications
+* 💳 Real payment gateway integration
+* 📧 Email order notifications
+* 📱 Progressive Web App support
+* ⭐ Restaurant reviews & ratings
+* 🎁 Coupon and discount system
+* 🤖 AI-powered food recommendations
+* 📈 Advanced analytics dashboard
+* 🔄 WebSocket-based real-time order updates
+* 🧾 Advanced PDF invoice generation
+
+---
+
+# 👨‍💻 Author
+
+## Sakthivel TJ
+
+**Java Full Stack Developer | Java | JSP | Servlets | JDBC | MySQL | JavaScript**
+
+I'm passionate about building practical full-stack applications and continuously improving my skills in Java backend development, databases, frontend engineering, and cloud deployment.
+
+### 🔗 Connect With Me
+
+**GitHub:** [@sakthivelTJ](https://github.com/sakthivelTJ)
+
+**Project Repository:**
+https://github.com/sakthivelTJ/Food_Delivery_Click_Chow
+
+---
+
+# ⭐ Support
+
+If you found **ClickChow** useful or interesting:
+
+⭐ Give the repository a star
+🍴 Fork the project
+🐛 Report issues
+💡 Suggest improvements
+🤝 Contribute to the project
+
+---
+
+# 📄 License
+
+This project is open source and available for **learning, experimentation, and reference purposes**.
+
+---
+
+<p align="center">
+
+### 🍔 ClickChow
+
+**From craving to doorstep — simplified.**
+
+⭐ **Built with Java • Designed with passion • Deployed with Docker** ⭐
+
+</p>
