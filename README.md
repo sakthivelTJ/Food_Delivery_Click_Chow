@@ -23,7 +23,7 @@
 
 <p align="center">
 
-**[🌐 Live Demo]([#-live-demo](https://fooddeliveryclickchow-production.up.railway.app/))** •
+**[🌐 Live Demo](https://fooddeliveryclickchow-production.up.railway.app/)** •
 **[📸 Screenshots](#-screenshots)** •
 **[🛠️ Tech Stack](#️-technology-stack)** •
 **[🚀 Getting Started](#-getting-started)**
