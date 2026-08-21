@@ -53,7 +53,7 @@
         [data-theme="light"] .card-content h2, [data-theme="light"] .price, [data-theme="light"] .empty-state h3 { color: #0f172a; }
         [data-theme="light"] .description, [data-theme="light"] .search-subtitle, [data-theme="light"] .empty-state p, [data-theme="light"] .btn-back-nav { color: #64748b; }
         [data-theme="light"] .restaurant-badge { background: #f1f5f9; color: #475569; }
-        [data-theme="light"] .top-back-bar { background: #fff; border-bottom-color: #e2e8f0; }
+        [data-theme="light"] .top-back-bar { background: #fff; }
         [data-theme="light"] .empty-state i { color: #cbd5e1; }
         [data-theme="light"] .result-count { background: #fff; border-color: #e2e8f0; color: #0f172a; }
         
@@ -70,7 +70,7 @@
         }
         
         /* Header CSS from index */
-        .header { background: rgba(9, 11, 18, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.08); position: sticky; top: 0; z-index: 100; padding: 15px 0; }
+        .header { background: rgba(9, 11, 18, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.08); position: sticky; top: 0; z-index: 100; }
         .header-container { width: 95%; max-width: 1650px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         .logo { color: white; text-decoration: none; font-size: 24px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
         .logo span { background: linear-gradient(90deg, #ff5a36, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -104,22 +104,6 @@
                 <a href="#">Contact</a>
             </nav>
             <div class="header-actions">
-                <div class="header-search-wrapper" id="header-search-wrapper">
-                    <button type="button" class="header-search-trigger" id="header-search-trigger" title="Search Food">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                    <div class="header-search-box" id="header-search-box">
-                        <i class="fa-solid fa-magnifying-glass search-inner-icon"></i>
-                        <input type="text" id="top-food-search" class="top-food-search-input" placeholder="Search food..." autocomplete="off" />
-                        <button type="button" class="header-search-close" id="header-search-close">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </div>
-                    <div class="top-search-dropdown" id="top-search-dropdown"></div>
-                </div>
-                <button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle Theme" style="background:transparent; border:none; color:inherit; font-size:1.2rem; cursor:pointer;">
-                    <i class="fa-solid fa-moon"></i>
-                </button>
                 <a href="login.jsp" class="login-btn">Login</a>
                 <a href="register.jsp" class="register-btn">Sign Up</a>
             </div>

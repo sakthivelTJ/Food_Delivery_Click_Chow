@@ -59,32 +59,7 @@
 				Click<span>Chow</span>
 			</a>
 
-			<!-- Header Search -->
-			<div class="header-search" id="headerSearch" style="margin-right: 15px;">
-				<!-- SEARCH ICON -->
-				<button type="button" class="search-button" id="searchButton" aria-label="Search">
-					<i class="fa-solid fa-magnifying-glass"></i>
-				</button>
-
-				<!-- EXPANDING SEARCH BAR -->
-				<div class="search-bar" id="searchBar">
-					<form action="searchFood" method="get" class="search-form" id="searchForm">
-						<i class="fa-solid fa-magnifying-glass"></i>
-						<input type="text"
-							name="q"
-							id="searchInput"
-							class="search-input"
-							placeholder="Search food or restaurant..."
-							autocomplete="off"
-							required>
-
-						<button type="submit" class="search-submit">
-							Search
-						</button>
-					</form>
-				</div>
-			</div>
-
+			
 			<div class="profile">
 
 				<button class="profile-btn" onclick="toggleProfile()">
@@ -441,7 +416,6 @@
 	position: sticky;
 	top: 0;
 	z-index: 100;
-	padding: 15px 0;
 }
 
 .header-container {

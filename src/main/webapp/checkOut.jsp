@@ -310,7 +310,7 @@
 
     <!-- Header -->
     <header class="header">
-        <a href="logoLogout" onclick="localStorage.clear(); sessionStorage.clear();" class="logo">
+        <a href="accessed" onclick="localStorage.clear(); sessionStorage.clear();" class="logo">
             <span class="logo-icon"><i class="fa-solid fa-arrow-pointer"></i></span> Click<span>Chow</span>
         </a>
         <div style="display: flex; align-items: center; gap: 15px;">

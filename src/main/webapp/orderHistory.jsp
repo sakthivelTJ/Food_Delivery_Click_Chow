@@ -89,7 +89,7 @@ body {
 
 /* Page Header & Stats */
 .history-hero {
-	margin-top: 75px; background : linear-gradient( 135deg, rgba( 24, 29, 43
+	margin-top: 90px; background : linear-gradient( 135deg, rgba( 24, 29, 43
 	, 0.9), rgba( 18, 22, 32, 0.9));
 	border: 1px solid rgba(255, 255, 255, 0.08);
 	border-radius: 24px;
@@ -597,7 +597,7 @@ body {
 	<!-- Header Navigation -->
 	<header class="header">
 		<div class="header-container">
-			<a href="restaurant" class="logo"> <span class="logo-icon"><i
+			<a href="accessed" class="logo"> <span class="logo-icon"><i
 					class="fa-solid fa-arrow-pointer"></i></span> Click<span>Chow</span>
 			</a>
 
@@ -608,34 +608,6 @@ body {
 			</nav>
 
 			<div class="header-actions">
-				<!-- Top Right Food Search Bar -->
-				<div class="header-search-wrapper" id="header-search-wrapper">
-					<button type="button" class="header-search-trigger"
-						id="header-search-trigger" title="Search Food">
-						<i class="fa-solid fa-magnifying-glass"></i>
-					</button>
-					<div class="header-search-box" id="header-search-box">
-						<i class="fa-solid fa-magnifying-glass search-inner-icon"></i> <input
-							type="text" id="top-food-search" class="top-food-search-input"
-							placeholder="Search food (e.g. biryani, pizza...)"
-							autocomplete="off" />
-						<button type="button" class="header-search-close"
-							id="header-search-close">
-							<i class="fa-solid fa-xmark"></i>
-						</button>
-					</div>
-					<div class="top-search-dropdown" id="top-search-dropdown"></div>
-				</div>
-				<button class="theme-toggle" id="theme-toggle-btn"
-					aria-label="Toggle Theme">
-					<i class="fa-solid fa-moon"></i>
-				</button>
-				<a href="cart.jsp" class="cart-toggle-btn"
-					style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
-					<i class="fa-solid fa-bag-shopping"></i> <span class="cart-count"
-					style="margin-left: 6px;"><%=cartCount%></span>
-				</a>
-
 				<div class="profile" style="margin-left: 15px;">
 					<button class="profile-btn" onclick="toggleProfile()">
 						👤

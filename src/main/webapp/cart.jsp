@@ -49,12 +49,28 @@ a {
 	z-index: 100;
 }
 
+a.logo {
+	margin-right: auto;
+}
+
 .logo {
-	font-size: 30px;
+	color: white;
+	text-decoration: none;
+	font-size: 24px;
 	font-weight: 800;
-	background: linear-gradient(135deg, #ff6b35, #ec4899);
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.logo span {
+	background: linear-gradient(90deg, #ff5a36, #ec4899);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
+}
+
+.logo-icon {
+	color: #ff5a36;
 }
 
 .nav-links {
@@ -195,7 +211,6 @@ a {
 	position: sticky;
 	top: 0;
 	z-index: 100;
-	padding: 15px 0;
 }
 
 .header-container {
@@ -289,7 +304,7 @@ a.logo {
 	<!-- Header Navigation -->
 	<header class="header">
 		<div class="header-container">
-			<a href="accessed" onclick="localStorage.clear(); sessionStorage.clear();" class="logo">
+			<a href="accessed"  class="logo">
 				<span class="logo-icon"><i class="fa-solid fa-arrow-pointer"></i></span> Click<span>Chow</span>
 			</a>
 
@@ -311,7 +326,6 @@ a.logo {
 					</div>
 					<a href="orderHistory">📜 Order History</a>
 					<a href="editProfile.jsp">✏ Edit Profile</a> 
-					<a href="adminLogin.jsp" style="color:#ff5a36; font-weight:600;">⚙️ Admin Panel</a>
 					<a href="LogoutServlet">🚪 Logout</a>
 				</div>
 			</div>
@@ -693,7 +707,6 @@ a.logo {
                 + '<h4 style="font-size: 1.1rem; font-weight: 800; color: #ffffff; margin-bottom: 6px; display: block; line-height: 1.3;">' + item.name + '</h4>'
                 + '<div style="font-size: 13px; color: #9ca3af; margin-bottom: 10px;">'
                 + 'Price: <strong style="color: #ff5a36; font-size: 14px;">₹' + item.price.toFixed(2) + '</strong>'
-                + '<span style="margin: 0 6px; color: rgba(255,255,255,0.2);">|</span>'
                 + 'Subtotal: <strong style="color: #10b981; font-size: 14px;">₹' + itemSubtotal + '</strong>'
                 + '</div>'
                 + '<div class="cart-item-controls" style="display: flex; align-items: center; gap: 12px;">'
