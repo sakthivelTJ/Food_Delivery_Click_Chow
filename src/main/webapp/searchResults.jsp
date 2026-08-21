@@ -57,6 +57,18 @@
         [data-theme="light"] .empty-state i { color: #cbd5e1; }
         [data-theme="light"] .result-count { background: #fff; border-color: #e2e8f0; color: #0f172a; }
         
+        /* Card click animation for search results page */
+        .menu-card { position: relative; overflow: hidden; }
+        .menu-card.card-selected .btn-view-menu {
+            background: linear-gradient(90deg, #ff5a36, #ec4899) !important;
+            color: #fff !important;
+            border-color: transparent !important;
+        }
+        @keyframes cardFadeUp {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+        
         /* Header CSS from index */
         .header { background: rgba(9, 11, 18, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.08); position: sticky; top: 0; z-index: 100; padding: 15px 0; }
         .header-container { width: 95%; max-width: 1650px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
@@ -86,7 +98,7 @@
                 Click<span>Chow</span>
             </a>
             <nav class="nav-links">
-                <a href="index.jsp">Home</a>
+                <a href="accessed">Home</a>
                 <a href="restaurant">Restaurants</a>
                 <a href="#">About</a>
                 <a href="#">Contact</a>

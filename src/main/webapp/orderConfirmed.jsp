@@ -278,8 +278,27 @@ h1 {
 		<a href="restaurant" class="logo"> Click<span>Chow</span>
 		</a>
 
-		<div class="secure">
-			<i class="fa-solid fa-shield-halved"></i> Order Secured
+		<div style="display: flex; align-items: center; gap: 15px;">
+			<div class="secure">
+				<i class="fa-solid fa-shield-halved"></i> Order Secured
+			</div>
+			<!-- Top Right Food Search Bar -->
+			<div class="header-search-wrapper" id="header-search-wrapper">
+				<button type="button" class="header-search-trigger" id="header-search-trigger" title="Search Food">
+					<i class="fa-solid fa-magnifying-glass"></i>
+				</button>
+				<div class="header-search-box" id="header-search-box">
+					<i class="fa-solid fa-magnifying-glass search-inner-icon"></i>
+					<input type="text" id="top-food-search" class="top-food-search-input" placeholder="Search food (e.g. biryani, pizza...)" autocomplete="off" />
+					<button type="button" class="header-search-close" id="header-search-close">
+						<i class="fa-solid fa-xmark"></i>
+					</button>
+				</div>
+				<div class="top-search-dropdown" id="top-search-dropdown"></div>
+			</div>
+			<button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle Theme" style="background:transparent; border:none; color:inherit; font-size:1.2rem; cursor:pointer;">
+				<i class="fa-solid fa-moon"></i>
+			</button>
 		</div>
 
 	</header>
@@ -340,6 +359,6 @@ h1 {
 		</div>
 
 	</div>
-
+<script src="app.js"></script>
 </body>
 </html>

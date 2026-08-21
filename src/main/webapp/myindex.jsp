@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page
 	import="java.util.List, com.tap.model.Restaurant, com.tap.model.Carts, com.tap.model.CartItems"%>
-	<%@ page import="com.tap.model.user"%>
+<%@ page import="com.tap.model.user"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -346,31 +346,40 @@
 	<!-- Header Navigation -->
 	<header class="header">
 		<div class="header-container">
-			<a href="logoLogout" onclick="localStorage.clear(); sessionStorage.clear();" class="logo"> <span class="logo-icon"><i
-					class="fa-solid fa-arrow-pointer"></i></span> Click<span>Chow</span>
+			<a href="logoLogout"
+				onclick="localStorage.clear(); sessionStorage.clear();" class="logo">
+				<span class="logo-icon"><i class="fa-solid fa-arrow-pointer"></i></span>
+				Click<span>Chow</span>
 			</a>
 
 			<nav class="nav-links">
 				<a href="#hero" class="active">Home</a> <a
-					href="#restaurants-section">Restaurants</a> <a href="orderHistory">Order History</a> <a href="#about">About</a>
-				<a href="#contact">Contact</a>
+					href="#restaurants-section">Restaurants</a> <a href="orderHistory">Order
+					History</a> <a href="#about">About</a> <a href="#contact">Contact</a>
 			</nav>
 
 
 			<div class="header-actions">
-				<!-- Top Right Food Search Bar -->
-				<div class="header-search-wrapper" id="header-search-wrapper">
-					<button type="button" class="header-search-trigger" id="header-search-trigger" title="Search Food">
+				<!-- Header Search -->
+				<div class="header-search" id="headerSearch">
+					<!-- SEARCH ICON -->
+					<button type="button" class="search-button" id="searchButton"
+						aria-label="Search">
 						<i class="fa-solid fa-magnifying-glass"></i>
 					</button>
-					<div class="header-search-box" id="header-search-box">
-						<i class="fa-solid fa-magnifying-glass search-inner-icon"></i>
-						<input type="text" id="top-food-search" class="top-food-search-input" placeholder="Search food (e.g. biryani, pizza...)" autocomplete="off" />
-						<button type="button" class="header-search-close" id="header-search-close">
-							<i class="fa-solid fa-xmark"></i>
-						</button>
+
+					<!-- EXPANDING SEARCH BAR -->
+					<div class="search-bar" id="searchBar">
+						<form action="searchFood" method="get" class="search-form"
+							id="searchForm">
+							<i class="fa-solid fa-magnifying-glass"></i> <input type="text"
+								name="q" id="searchInput" class="search-input"
+								placeholder="Search food or restaurant..." autocomplete="off"
+								required>
+
+							<button type="submit" class="search-submit">Search</button>
+						</form>
 					</div>
-					<div class="top-search-dropdown" id="top-search-dropdown"></div>
 				</div>
 				<button class="theme-toggle" id="theme-toggle-btn"
 					aria-label="Toggle Theme">
@@ -383,9 +392,9 @@
 						id="cart-count"></span>
 					</a>
 				</div>
-				 <a href="LogoutServlet"
-					class="btn-secondary login-btn" style="padding: 10px 20px;">Logout</a>
-				
+				<a href="LogoutServlet" class="btn-secondary login-btn"
+					style="padding: 10px 20px;">Logout</a>
+
 
 				<%
 				user user = (user) session.getAttribute("loggedInUser");
@@ -398,8 +407,9 @@
 
 				<div class="profile">
 
-					<button class="profile-btn" onclick="toggleProfile()">👤
-						 <%=user.getUser_name() %></button>
+					<button class="profile-btn" onclick="toggleProfile()">
+						👤
+						<%=user.getUser_name()%></button>
 
 					<div class="profile-card" id="profileCard">
 
@@ -410,18 +420,18 @@
 						</div>
 
 						<div class="row">
-							<span>Email</span> <span><%=user.getEmail() %></span>
+							<span>Email</span> <span><%=user.getEmail()%></span>
 						</div>
 						<div class="row">
-							<span>Address</span> <span><%=user.getAddress() %></span>
+							<span>Address</span> <span><%=user.getAddress()%></span>
 						</div>
 
 						<div class="row">
-							<span>Role</span> <span><%=user.getRole() %></span>
+							<span>Role</span> <span><%=user.getRole()%></span>
 						</div>
 
-						<a href="editProfile.jsp">✏ Edit Profile</a> <a href="LogoutServlet">🚪
-							Logout</a>
+						<a href="editProfile.jsp">✏ Edit Profile</a> <a
+							href="LogoutServlet">🚪 Logout</a>
 
 					</div>
 
@@ -438,7 +448,7 @@
 		</div>
 	</header>
 
-	
+
 
 	<!-- Hero Section -->
 	<section class="hero" id="hero">
@@ -582,15 +592,23 @@
 				List<Restaurant> allRestaurant = (List<Restaurant>) request.getAttribute("allRestaurant");
 				if (allRestaurant == null || allRestaurant.isEmpty()) {
 					com.tap.daoIMP.RestaurantDAOImp rDao = new com.tap.daoIMP.RestaurantDAOImp();
-					try { allRestaurant = rDao.getAllRestaurant(); } catch (Exception e) {}
+					try {
+						allRestaurant = rDao.getAllRestaurant();
+					} catch (Exception e) {
+					}
 				}
 				if (allRestaurant == null || allRestaurant.isEmpty()) {
 					allRestaurant = new java.util.ArrayList<Restaurant>();
-					allRestaurant.add(new Restaurant(1, "Annalakshmi Restaurant", "South Indian, Veg", "20-30 mins", "Cathedral Road, Chennai", 4.8, true, "images/restaurants/annalakshmi.png"));
-					allRestaurant.add(new Restaurant(2, "Avartana - ITC Grand Chola", "Luxury South Indian", "30-40 mins", "Guindy, Chennai", 4.9, true, "images/restaurants/avartana.jpg"));
-					allRestaurant.add(new Restaurant(3, "Paati Veedu", "Traditional Tamil", "25-35 mins", "T. Nagar, Chennai", 4.7, true, "images/restaurants/paati_veedu.png"));
-					allRestaurant.add(new Restaurant(4, "Southern Spice", "South & Chettinad", "25-35 mins", "Nungambakkam, Chennai", 4.8, true, "images/restaurants/southern_spice.jpg"));
-					allRestaurant.add(new Restaurant(5, "Pakwan Chennai", "North Indian, Mughlai", "30-40 mins", "T. Nagar, Chennai", 4.6, true, "images/restaurants/pakwan_chennai.jpg"));
+					allRestaurant.add(new Restaurant(1, "Annalakshmi Restaurant", "South Indian, Veg", "20-30 mins",
+					"Cathedral Road, Chennai", 4.8, true, "images/restaurants/annalakshmi.png"));
+					allRestaurant.add(new Restaurant(2, "Avartana - ITC Grand Chola", "Luxury South Indian", "30-40 mins",
+					"Guindy, Chennai", 4.9, true, "images/restaurants/avartana.jpg"));
+					allRestaurant.add(new Restaurant(3, "Paati Veedu", "Traditional Tamil", "25-35 mins", "T. Nagar, Chennai", 4.7,
+					true, "images/restaurants/paati_veedu.png"));
+					allRestaurant.add(new Restaurant(4, "Southern Spice", "South & Chettinad", "25-35 mins", "Nungambakkam, Chennai",
+					4.8, true, "images/restaurants/southern_spice.jpg"));
+					allRestaurant.add(new Restaurant(5, "Pakwan Chennai", "North Indian, Mughlai", "30-40 mins", "T. Nagar, Chennai",
+					4.6, true, "images/restaurants/pakwan_chennai.jpg"));
 				}
 				for (Restaurant restaurant : allRestaurant) {
 				%>
@@ -622,7 +640,6 @@
 				</div>
 				<%
 				}
-				
 				%>
 			</div>
 		</div>
@@ -761,9 +778,12 @@
 	if (initialCartObj != null && initialCartObj.getItems() != null) {
 		boolean f = true;
 		for (CartItems ci : initialCartObj.getItems().values()) {
-			if (!f) initJson.append(",");
+			if (!f)
+		initJson.append(",");
 			f = false;
-			String ciName = (ci.getName() != null && !ci.getName().trim().isEmpty()) ? ci.getName() : "Food Item #" + ci.getMenuId();
+			String ciName = (ci.getName() != null && !ci.getName().trim().isEmpty())
+			? ci.getName()
+			: "Food Item #" + ci.getMenuId();
 			double ciPrice = ci.getPrice() > 0 ? ci.getPrice() : 199.0;
 			int ciQty = ci.getQuantity() > 0 ? ci.getQuantity() : 1;
 			double sub = ciPrice * ciQty;
@@ -771,15 +791,11 @@
 			initCount += ciQty;
 			String nameEsc = com.tap.CartServlet.escapeJson(ciName);
 			String imgEsc = ci.getImagePath() != null ? com.tap.CartServlet.escapeJson(ci.getImagePath()) : "";
-			initJson.append("{")
-					.append("\"menuId\":").append(ci.getMenuId()).append(",")
-					.append("\"restaurantId\":").append(ci.getRestaurantId()).append(",")
-					.append("\"name\":\"").append(nameEsc).append("\",")
-					.append("\"price\":").append(ciPrice).append(",")
-					.append("\"quantity\":").append(ciQty).append(",")
-					.append("\"subtotal\":").append(sub).append(",")
-					.append("\"imagePath\":\"").append(imgEsc).append("\"")
-					.append("}");
+			initJson.append("{").append("\"menuId\":").append(ci.getMenuId()).append(",").append("\"restaurantId\":")
+			.append(ci.getRestaurantId()).append(",").append("\"name\":\"").append(nameEsc).append("\",")
+			.append("\"price\":").append(ciPrice).append(",").append("\"quantity\":").append(ciQty).append(",")
+			.append("\"subtotal\":").append(sub).append(",").append("\"imagePath\":\"").append(imgEsc).append("\"")
+			.append("}");
 		}
 	}
 	initJson.append("]");
@@ -789,9 +805,10 @@
 	%>
 
 	<!-- Floating Cart Action Launcher (Bottom-Right) -->
-	<div class="floating-cart-trigger" id="floatingCartTrigger" onclick="toggleSideCart()">
-		<i class="fa-solid fa-bag-shopping"></i> <span>Cart</span>
-		<span class="floating-cart-badge" id="floatingCartBadge"><%= initCount %></span>
+	<div class="floating-cart-trigger" id="floatingCartTrigger"
+		onclick="toggleSideCart()">
+		<i class="fa-solid fa-bag-shopping"></i> <span>Cart</span> <span
+			class="floating-cart-badge" id="floatingCartBadge"><%=initCount%></span>
 	</div>
 
 	<!-- Floating Side Cart Drawer -->
@@ -800,9 +817,11 @@
 		<div class="cart-drawer-content">
 			<div class="cart-drawer-header">
 				<h3>
-					Your Cart <span class="cart-count-title" id="sideCartTitleCount">(<%= initCount %>)</span>
+					Your Cart <span class="cart-count-title" id="sideCartTitleCount">(<%=initCount%>)
+					</span>
 				</h3>
-				<button type="button" class="close-cart-btn" onclick="closeSideCart()">
+				<button type="button" class="close-cart-btn"
+					onclick="closeSideCart()">
 					<i class="fa-solid fa-xmark"></i>
 				</button>
 			</div>
@@ -813,7 +832,7 @@
 
 			<div class="cart-drawer-footer" id="sideCartFooter">
 				<div class="cart-summary-row">
-					<span>Subtotal</span> <span id="sideCartSubtotal">₹<%= String.format("%.2f", initTotal) %></span>
+					<span>Subtotal</span> <span id="sideCartSubtotal">₹<%=String.format("%.2f", initTotal)%></span>
 				</div>
 				<div class="cart-summary-row">
 					<span>Delivery Fee</span> <span>₹40.00</span>
@@ -823,15 +842,24 @@
 				</div>
 				<div class="cart-summary-divider"></div>
 				<div class="cart-summary-row total-row">
-					<span>Total</span> <span id="sideCartGrandTotal">₹<%= String.format("%.2f", initGrand) %></span>
+					<span>Total</span> <span id="sideCartGrandTotal">₹<%=String.format("%.2f", initGrand)%></span>
 				</div>
-				<div style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;">
-					<a href="checkOut.jsp" class="btn-side-cart-checkout"> Proceed to Checkout <i class="fa-solid fa-arrow-right"></i></a>
+				<div
+					style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;">
+					<a href="checkOut.jsp" class="btn-side-cart-checkout"> Proceed
+						to Checkout <i class="fa-solid fa-arrow-right"></i>
+					</a>
 					<div style="display: flex; gap: 10px;">
-						<a href="cart.jsp" style="flex: 1; text-align: center; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px; border-radius: 50px; text-decoration: none; font-size: 14px; font-weight: 700; color: #fff; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.12); transition: 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.15)';" onmouseout="this.style.background='rgba(255,255,255,0.08)';">
+						<a href="cart.jsp"
+							style="flex: 1; text-align: center; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px; border-radius: 50px; text-decoration: none; font-size: 14px; font-weight: 700; color: #fff; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.12); transition: 0.2s;"
+							onmouseover="this.style.background='rgba(255,255,255,0.15)';"
+							onmouseout="this.style.background='rgba(255,255,255,0.08)';">
 							<i class="fa-solid fa-cart-shopping"></i> View Cart Page
 						</a>
-						<button type="button" onclick="clearCart()" style="padding: 12px 18px; border-radius: 50px; border: 1px solid rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.12); color: #ef4444; font-size: 14px; font-weight: 700; cursor: pointer; transition: 0.2s;" onmouseover="this.style.background='#ef4444'; this.style.color='#fff';" onmouseout="this.style.background='rgba(239,68,68,0.12)'; this.style.color='#ef4444';">
+						<button type="button" onclick="clearCart()"
+							style="padding: 12px 18px; border-radius: 50px; border: 1px solid rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.12); color: #ef4444; font-size: 14px; font-weight: 700; cursor: pointer; transition: 0.2s;"
+							onmouseover="this.style.background='#ef4444'; this.style.color='#fff';"
+							onmouseout="this.style.background='rgba(239,68,68,0.12)'; this.style.color='#ef4444';">
 							<i class="fa-solid fa-trash"></i> Clear Cart
 						</button>
 					</div>
@@ -841,13 +869,92 @@
 	</div>
 
 	<script type="text/javascript">
+
+
+    const searchButton =
+        document.getElementById("searchButton");
+
+    const searchBar =
+        document.getElementById("searchBar");
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    const headerSearch =
+        document.getElementById("headerSearch");
+
+
+    /*
+     * CLICK SEARCH BUTTON
+     * -------------------
+     * Expands the search bar.
+     */
+
+    searchButton.addEventListener("click", function (event) {
+
+        event.stopPropagation();
+
+        searchBar.classList.toggle("active");
+
+
+        if (searchBar.classList.contains("active")) {
+
+            setTimeout(function () {
+
+                searchInput.focus();
+
+            }, 200);
+
+        } else {
+
+            searchInput.value = "";
+
+        }
+
+    });
+
+
+    /*
+     * CLOSE SEARCH WHEN
+     * CLICKING OUTSIDE
+     */
+
+    document.addEventListener("click", function (event) {
+
+        if (!headerSearch.contains(event.target)) {
+
+            searchBar.classList.remove("active");
+
+            searchInput.value = "";
+
+        }
+
+    });
+
+
+    /*
+     * ESCAPE KEY
+     */
+
+    document.addEventListener("keydown", function (event) {
+
+        if (event.key === "Escape") {
+
+            searchBar.classList.remove("active");
+
+            searchInput.value = "";
+
+        }
+
+    });
+
     let localCartState = {
-        items: <%= initJson.toString() %>,
-        subtotal: <%= initTotal %>,
-        totalCount: <%= initCount %>,
-        deliveryFee: <%= initDelivery %>,
-        gst: <%= initGst %>,
-        grandTotal: <%=initGrand %>
+        items: <%=initJson.toString()%>,
+        subtotal: <%=initTotal%>,
+        totalCount: <%=initCount%>,
+        deliveryFee: <%=initDelivery%>,
+        gst: <%=initGst%>,
+        grandTotal: <%=initGrand%>
     };
 
     function normalizeItem(raw, existing) {
@@ -1063,6 +1170,7 @@
             });
         }
     });
+
 	</script>
 </body>
 </html>

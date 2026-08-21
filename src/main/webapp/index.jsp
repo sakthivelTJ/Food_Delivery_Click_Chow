@@ -251,25 +251,32 @@
 
 			<nav class="nav-links">
 				<a href="#hero" class="active">Home</a> <a
-					href="#restaurants-section">Restaurants</a> <a href="orderHistory">Order History</a> <a href="#about">About</a>
-				<a href="#contact">Contact</a>
+					href="#restaurants-section">Restaurants</a> <a href="orderHistory">Order
+					History</a> <a href="#about">About</a> <a href="#contact">Contact</a>
 			</nav>
 
 
 			<div class="header-actions">
-				<!-- Top Right Food Search Bar -->
-				<div class="header-search-wrapper" id="header-search-wrapper">
-					<button type="button" class="header-search-trigger" id="header-search-trigger" title="Search Food">
+				<!-- Header Search -->
+				<div class="header-search" id="headerSearch">
+					<!-- SEARCH ICON -->
+					<button type="button" class="search-button" id="searchButton"
+						aria-label="Search">
 						<i class="fa-solid fa-magnifying-glass"></i>
 					</button>
-					<div class="header-search-box" id="header-search-box">
-						<i class="fa-solid fa-magnifying-glass search-inner-icon"></i>
-						<input type="text" id="top-food-search" class="top-food-search-input" placeholder="Search food (e.g. biryani, pizza...)" autocomplete="off" />
-						<button type="button" class="header-search-close" id="header-search-close">
-							<i class="fa-solid fa-xmark"></i>
-						</button>
+
+					<!-- EXPANDING SEARCH BAR -->
+					<div class="search-bar" id="searchBar">
+						<form action="searchFood" method="get" class="search-form"
+							id="searchForm">
+							<i class="fa-solid fa-magnifying-glass"></i> <input type="text"
+								name="q" id="searchInput" class="search-input"
+								placeholder="Search food or restaurant..." autocomplete="off"
+								required>
+
+							<button type="submit" class="search-submit">Search</button>
+						</form>
 					</div>
-					<div class="top-search-dropdown" id="top-search-dropdown"></div>
 				</div>
 				<button class="theme-toggle" id="theme-toggle-btn"
 					aria-label="Toggle Theme">
@@ -296,8 +303,10 @@
 	<!-- Hero Section -->
 	<section class="hero" id="hero">
 		<!-- Background Loop Video -->
-		<video autoplay loop muted playsinline class="hero-bg-video" >
-			<source src="D:\Advance_Java\Wokspace\JEEProject1\src\main\webapp\assets\bg_video.mp4" type="video/mp4">
+		<video autoplay loop muted playsinline class="hero-bg-video">
+			<source
+				src="D:\Advance_Java\Wokspace\JEEProject1\src\main\webapp\assets\bg_video.mp4"
+				type="video/mp4">
 			Your browser does not support the video tag.
 		</video>
 
@@ -431,50 +440,58 @@
 
 			<div class="restaurants-grid">
 				<%
-					@SuppressWarnings("unchecked")
-					List<Restaurant> allRestaurant = (List<Restaurant>) request.getAttribute("allRestaurant");
-					if (allRestaurant == null || allRestaurant.isEmpty()) {
-						com.tap.daoIMP.RestaurantDAOImp rDao = new com.tap.daoIMP.RestaurantDAOImp();
-						try { allRestaurant = rDao.getAllRestaurant(); } catch (Exception e) {}
+				@SuppressWarnings("unchecked")
+				List<Restaurant> allRestaurant = (List<Restaurant>) request.getAttribute("allRestaurant");
+				if (allRestaurant == null || allRestaurant.isEmpty()) {
+					com.tap.daoIMP.RestaurantDAOImp rDao = new com.tap.daoIMP.RestaurantDAOImp();
+					try {
+						allRestaurant = rDao.getAllRestaurant();
+					} catch (Exception e) {
 					}
-					if (allRestaurant == null || allRestaurant.isEmpty()) {
-						allRestaurant = new java.util.ArrayList<Restaurant>();
-						allRestaurant.add(new Restaurant(1, "Annalakshmi Restaurant", "South Indian, Veg", "20-30 mins", "Cathedral Road, Chennai", 4.8, true, "images/restaurants/annalakshmi.png"));
-						allRestaurant.add(new Restaurant(2, "Avartana - ITC Grand Chola", "Luxury South Indian", "30-40 mins", "Guindy, Chennai", 4.9, true, "images/restaurants/avartana.jpg"));
-						allRestaurant.add(new Restaurant(3, "Paati Veedu", "Traditional Tamil", "25-35 mins", "T. Nagar, Chennai", 4.7, true, "images/restaurants/paati_veedu.png"));
-						allRestaurant.add(new Restaurant(4, "Southern Spice", "South & Chettinad", "25-35 mins", "Nungambakkam, Chennai", 4.8, true, "images/restaurants/southern_spice.jpg"));
-						allRestaurant.add(new Restaurant(5, "Pakwan Chennai", "North Indian, Mughlai", "30-40 mins", "T. Nagar, Chennai", 4.6, true, "images/restaurants/pakwan_chennai.jpg"));
-					}
-					for (Restaurant restaurant : allRestaurant) {
+				}
+				if (allRestaurant == null || allRestaurant.isEmpty()) {
+					allRestaurant = new java.util.ArrayList<Restaurant>();
+					allRestaurant.add(new Restaurant(1, "Annalakshmi Restaurant", "South Indian, Veg", "20-30 mins",
+					"Cathedral Road, Chennai", 4.8, true, "images/restaurants/annalakshmi.png"));
+					allRestaurant.add(new Restaurant(2, "Avartana - ITC Grand Chola", "Luxury South Indian", "30-40 mins",
+					"Guindy, Chennai", 4.9, true, "images/restaurants/avartana.jpg"));
+					allRestaurant.add(new Restaurant(3, "Paati Veedu", "Traditional Tamil", "25-35 mins", "T. Nagar, Chennai", 4.7,
+					true, "images/restaurants/paati_veedu.png"));
+					allRestaurant.add(new Restaurant(4, "Southern Spice", "South & Chettinad", "25-35 mins", "Nungambakkam, Chennai",
+					4.8, true, "images/restaurants/southern_spice.jpg"));
+					allRestaurant.add(new Restaurant(5, "Pakwan Chennai", "North Indian, Mughlai", "30-40 mins", "T. Nagar, Chennai",
+					4.6, true, "images/restaurants/pakwan_chennai.jpg"));
+				}
+				for (Restaurant restaurant : allRestaurant) {
 				%>
 				<div class="restaurant-card">
 					<div class="restaurant-img-wrapper">
-						<img src="<%=restaurant.getImagePath() %>"
-							alt="<%=restaurant.getName() %>" /> <span class="restaurant-tag">Top
+						<img src="<%=restaurant.getImagePath()%>"
+							alt="<%=restaurant.getName()%>" /> <span class="restaurant-tag">Top
 							Rated</span>
 					</div>
 					<div class="restaurant-info">
 						<div class="restaurant-header">
 							<h3><%=restaurant.getName()%></h3>
 							<span class="restaurant-rating"><i
-								class="fa-solid fa-star"></i> <%= restaurant.getRating() %></span>
+								class="fa-solid fa-star"></i> <%=restaurant.getRating()%></span>
 						</div>
-						<p class="restaurant-cuisine"><%=restaurant.getCustomerType() %></p>
+						<p class="restaurant-cuisine"><%=restaurant.getCustomerType()%></p>
 						<p class="restaurant-cuisine"><%=restaurant.getAddress()%></p>
 						<div class="restaurant-meta">
 							<span><i class="fa-solid fa-bicycle"></i> Free Delivery</span> <span><i
-								class="fa-solid fa-clock"></i> <%=restaurant.getDeliveryTime() %></span>
+								class="fa-solid fa-clock"></i> <%=restaurant.getDeliveryTime()%></span>
 						</div>
 						<div class="restaurant-actions"
 							style="margin-top: 15px; display: flex; justify-content: flex-end;">
-							<a href="menu?restaurantId=<%= restaurant.getRestaurant_id()%>"
+							<a href="menu?restaurantId=<%=restaurant.getRestaurant_id()%>"
 								style="display: inline-block; width: 100%; text-align: center; text-decoration: none; padding: 14px 20px; border-radius: 50px; background: linear-gradient(135deg, #ff5a36, #ec4899); color: #fff; font-size: 16px; font-weight: 700; font-family: Outfit, sans-serif; box-shadow: 0 8px 20px rgba(255, 90, 54, .30); transition: all .3s ease;">
 								View Menu </a>
 						</div>
 					</div>
 				</div>
 				<%
-						}
+				}
 				%>
 			</div>
 		</div>
@@ -602,45 +619,6 @@
 		</div>
 	</footer>
 
-	<!-- JavaScript -->
-	<script src="app.js"></script>
-	<script>
-		// Hero Food Showcase Picture Slider
-		const heroShowcaseItems = [
-			{ img: "assets/images/burger.png", title: "Gourmet Burger", price: "₹199", rating: "4.9" },
-			{ img: "assets/images/pizza.png", title: "Pepperoni Pizza", price: "₹349", rating: "4.8" },
-			{ img: "assets/images/biryani.png", title: "Special Biryani", price: "₹299", rating: "5.0" },
-			{ img: "assets/images/sushi.png", title: "Salmon Sushi", price: "₹450", rating: "4.9" },
-			{ img: "assets/images/paneertikka.png", title: "Paneer Tikka", price: "₹240", rating: "4.7" },
-			{ img: "assets/images/dessert.png", title: "Choco Lava Cake", price: "₹150", rating: "4.9" }
-		];
-
-		let heroIdx = 0;
-		setInterval(() => {
-			heroIdx = (heroIdx + 1) % heroShowcaseItems.length;
-			const current = heroShowcaseItems[heroIdx];
-			const imgEl = document.getElementById("hero-slider-img");
-			const titleEl = document.getElementById("hero-badge-title");
-			const priceEl = document.getElementById("hero-badge-price");
-			const ratingEl = document.getElementById("hero-badge-rating");
-
-			if (imgEl && titleEl && priceEl && ratingEl) {
-				imgEl.style.opacity = "0.2";
-				imgEl.style.transform = "scale(0.92) rotate(-5deg)";
-				setTimeout(() => {
-					imgEl.src = current.img;
-					titleEl.innerText = current.title;
-					priceEl.innerText = current.price;
-					ratingEl.innerHTML = '<i class="fa-solid fa-star"></i> ' + current.rating;
-					imgEl.style.opacity = "1";
-					imgEl.style.transform = "scale(1) rotate(0deg)";
-				}, 250);
-			}
-		}, 3000);
-	</script>
-	<!-- JavaScript -->
-	<script src="app.js"></script>
-
 	<%
 	Carts initialCartObj = (Carts) session.getAttribute("cart");
 	double initTotal = 0;
@@ -649,9 +627,12 @@
 	if (initialCartObj != null && initialCartObj.getItems() != null) {
 		boolean f = true;
 		for (CartItems ci : initialCartObj.getItems().values()) {
-			if (!f) initJson.append(",");
+			if (!f)
+		initJson.append(",");
 			f = false;
-			String ciName = (ci.getName() != null && !ci.getName().trim().isEmpty()) ? ci.getName() : "Food Item #" + ci.getMenuId();
+			String ciName = (ci.getName() != null && !ci.getName().trim().isEmpty())
+			? ci.getName()
+			: "Food Item #" + ci.getMenuId();
 			double ciPrice = ci.getPrice() > 0 ? ci.getPrice() : 199.0;
 			int ciQty = ci.getQuantity() > 0 ? ci.getQuantity() : 1;
 			double sub = ciPrice * ciQty;
@@ -659,15 +640,11 @@
 			initCount += ciQty;
 			String nameEsc = com.tap.CartServlet.escapeJson(ciName);
 			String imgEsc = ci.getImagePath() != null ? com.tap.CartServlet.escapeJson(ci.getImagePath()) : "";
-			initJson.append("{")
-					.append("\"menuId\":").append(ci.getMenuId()).append(",")
-					.append("\"restaurantId\":").append(ci.getRestaurantId()).append(",")
-					.append("\"name\":\"").append(nameEsc).append("\",")
-					.append("\"price\":").append(ciPrice).append(",")
-					.append("\"quantity\":").append(ciQty).append(",")
-					.append("\"subtotal\":").append(sub).append(",")
-					.append("\"imagePath\":\"").append(imgEsc).append("\"")
-					.append("}");
+			initJson.append("{").append("\"menuId\":").append(ci.getMenuId()).append(",").append("\"restaurantId\":")
+			.append(ci.getRestaurantId()).append(",").append("\"name\":\"").append(nameEsc).append("\",")
+			.append("\"price\":").append(ciPrice).append(",").append("\"quantity\":").append(ciQty).append(",")
+			.append("\"subtotal\":").append(sub).append(",").append("\"imagePath\":\"").append(imgEsc).append("\"")
+			.append("}");
 		}
 	}
 	initJson.append("]");
@@ -677,9 +654,10 @@
 	%>
 
 	<!-- Floating Cart Action Launcher (Bottom-Right) -->
-	<div class="floating-cart-trigger" id="floatingCartTrigger" onclick="toggleSideCart()">
-		<i class="fa-solid fa-bag-shopping"></i> <span>Cart</span>
-		<span class="floating-cart-badge" id="floatingCartBadge"><%= initCount %></span>
+	<div class="floating-cart-trigger" id="floatingCartTrigger"
+		onclick="toggleSideCart()">
+		<i class="fa-solid fa-bag-shopping"></i> <span>Cart</span> <span
+			class="floating-cart-badge" id="floatingCartBadge"><%=initCount%></span>
 	</div>
 
 	<!-- Floating Side Cart Drawer -->
@@ -688,9 +666,11 @@
 		<div class="cart-drawer-content">
 			<div class="cart-drawer-header">
 				<h3>
-					Your Cart <span class="cart-count-title" id="sideCartTitleCount">(<%= initCount %>)</span>
+					Your Cart <span class="cart-count-title" id="sideCartTitleCount">(<%=initCount%>)
+					</span>
 				</h3>
-				<button type="button" class="close-cart-btn" onclick="closeSideCart()">
+				<button type="button" class="close-cart-btn"
+					onclick="closeSideCart()">
 					<i class="fa-solid fa-xmark"></i>
 				</button>
 			</div>
@@ -701,7 +681,7 @@
 
 			<div class="cart-drawer-footer" id="sideCartFooter">
 				<div class="cart-summary-row">
-					<span>Subtotal</span> <span id="sideCartSubtotal">₹<%= String.format("%.2f", initTotal) %></span>
+					<span>Subtotal</span> <span id="sideCartSubtotal">₹<%=String.format("%.2f", initTotal)%></span>
 				</div>
 				<div class="cart-summary-row">
 					<span>Delivery Fee</span> <span>₹40.00</span>
@@ -711,15 +691,24 @@
 				</div>
 				<div class="cart-summary-divider"></div>
 				<div class="cart-summary-row total-row">
-					<span>Total</span> <span id="sideCartGrandTotal">₹<%= String.format("%.2f", initGrand) %></span>
+					<span>Total</span> <span id="sideCartGrandTotal">₹<%=String.format("%.2f", initGrand)%></span>
 				</div>
-				<div style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;">
-					<a href="checkOut.jsp" class="btn-side-cart-checkout"> Proceed to Checkout <i class="fa-solid fa-arrow-right"></i></a>
+				<div
+					style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;">
+					<a href="checkOut.jsp" class="btn-side-cart-checkout"> Proceed
+						to Checkout <i class="fa-solid fa-arrow-right"></i>
+					</a>
 					<div style="display: flex; gap: 10px;">
-						<a href="cart.jsp" style="flex: 1; text-align: center; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px; border-radius: 50px; text-decoration: none; font-size: 14px; font-weight: 700; color: #fff; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.12); transition: 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.15)';" onmouseout="this.style.background='rgba(255,255,255,0.08)';">
+						<a href="cart.jsp"
+							style="flex: 1; text-align: center; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px; border-radius: 50px; text-decoration: none; font-size: 14px; font-weight: 700; color: #fff; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.12); transition: 0.2s;"
+							onmouseover="this.style.background='rgba(255,255,255,0.15)';"
+							onmouseout="this.style.background='rgba(255,255,255,0.08)';">
 							<i class="fa-solid fa-cart-shopping"></i> View Cart Page
 						</a>
-						<button type="button" onclick="clearCart()" style="padding: 12px 18px; border-radius: 50px; border: 1px solid rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.12); color: #ef4444; font-size: 14px; font-weight: 700; cursor: pointer; transition: 0.2s;" onmouseover="this.style.background='#ef4444'; this.style.color='#fff';" onmouseout="this.style.background='rgba(239,68,68,0.12)'; this.style.color='#ef4444';">
+						<button type="button" onclick="clearCart()"
+							style="padding: 12px 18px; border-radius: 50px; border: 1px solid rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.12); color: #ef4444; font-size: 14px; font-weight: 700; cursor: pointer; transition: 0.2s;"
+							onmouseover="this.style.background='#ef4444'; this.style.color='#fff';"
+							onmouseout="this.style.background='rgba(239,68,68,0.12)'; this.style.color='#ef4444';">
 							<i class="fa-solid fa-trash"></i> Clear Cart
 						</button>
 					</div>
@@ -729,13 +718,90 @@
 	</div>
 
 	<script type="text/javascript">
+
+    const searchButton =
+        document.getElementById("searchButton");
+
+    const searchBar =
+        document.getElementById("searchBar");
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    const headerSearch =
+        document.getElementById("headerSearch");
+
+
+    /*
+     * CLICK SEARCH BUTTON
+     * -------------------
+     * Expands the search bar.
+     */
+
+    searchButton.addEventListener("click", function (event) {
+
+        event.stopPropagation();
+
+        searchBar.classList.toggle("active");
+
+
+        if (searchBar.classList.contains("active")) {
+
+            setTimeout(function () {
+
+                searchInput.focus();
+
+            }, 200);
+
+        } else {
+
+            searchInput.value = "";
+
+        }
+
+    });
+
+
+    /*
+     * CLOSE SEARCH WHEN
+     * CLICKING OUTSIDE
+     */
+
+    document.addEventListener("click", function (event) {
+
+        if (!headerSearch.contains(event.target)) {
+
+            searchBar.classList.remove("active");
+
+            searchInput.value = "";
+
+        }
+
+    });
+
+
+    /*
+     * ESCAPE KEY
+     */
+
+    document.addEventListener("keydown", function (event) {
+
+        if (event.key === "Escape") {
+
+            searchBar.classList.remove("active");
+
+            searchInput.value = "";
+
+        }
+
+    });
     let localCartState = {
-        items: <%= initJson.toString() %>,
-        subtotal: <%= initTotal %>,
-        totalCount: <%= initCount %>,
-        deliveryFee: <%= initDelivery %>,
-        gst: <%= initGst %>,
-        grandTotal: <%= initGrand %>
+        items: <%=initJson.toString()%>,
+        subtotal: <%=initTotal%>,
+        totalCount: <%=initCount%>,
+        deliveryFee: <%=initDelivery%>,
+        gst: <%=initGst%>,
+        grandTotal: <%=initGrand%>
     };
 
     function normalizeItem(raw, existing) {

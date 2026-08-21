@@ -313,8 +313,10 @@
         <a href="logoLogout" onclick="localStorage.clear(); sessionStorage.clear();" class="logo">
             <span class="logo-icon"><i class="fa-solid fa-arrow-pointer"></i></span> Click<span>Chow</span>
         </a>
-        <div style="color: #fff; font-weight: 600;">
-            <i class="fa-solid fa-lock" style="color: #ff5a36; margin-right: 5px;"></i> Secure Checkout
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <div style="color: #fff; font-weight: 600;">
+                <i class="fa-solid fa-lock" style="color: #ff5a36; margin-right: 5px;"></i> Secure Checkout
+            </div>
         </div>
     </header>
 
@@ -465,6 +467,6 @@
             </div>
         </form>
     </div>
-
+<script src="app.js"></script>
 </body>
 </html>

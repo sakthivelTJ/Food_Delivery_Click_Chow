@@ -46,12 +46,6 @@
 	<!-- Header Navigation -->
 	<header class="header">
 		<div class="header-container">
-			<a href="accessed"
-				onclick="localStorage.clear(); sessionStorage.clear();" class="logo">
-				<span class="logo-icon"><i class="fa-solid fa-arrow-pointer"></i></span>
-				Click<span>Chow</span>
-			</a>
-
 			<%
 			user user = (user) session.getAttribute("loggedInUser");
 			if (user == null) {
@@ -59,6 +53,37 @@
 				return;
 			}
 			%>
+			<a href="accessed"
+				onclick="localStorage.clear(); sessionStorage.clear();" class="logo">
+				<span class="logo-icon"><i class="fa-solid fa-arrow-pointer"></i></span>
+				Click<span>Chow</span>
+			</a>
+
+			<!-- Header Search -->
+			<div class="header-search" id="headerSearch" style="margin-right: 15px;">
+				<!-- SEARCH ICON -->
+				<button type="button" class="search-button" id="searchButton" aria-label="Search">
+					<i class="fa-solid fa-magnifying-glass"></i>
+				</button>
+
+				<!-- EXPANDING SEARCH BAR -->
+				<div class="search-bar" id="searchBar">
+					<form action="searchFood" method="get" class="search-form" id="searchForm">
+						<i class="fa-solid fa-magnifying-glass"></i>
+						<input type="text"
+							name="q"
+							id="searchInput"
+							class="search-input"
+							placeholder="Search food or restaurant..."
+							autocomplete="off"
+							required>
+
+						<button type="submit" class="search-submit">
+							Search
+						</button>
+					</form>
+				</div>
+			</div>
 
 			<div class="profile">
 
@@ -100,23 +125,6 @@
 			%>
 
 			<div class="header-actions">
-				<!-- Top Right Food Search Bar -->
-				<div class="header-search-wrapper" id="header-search-wrapper">
-					<button type="button" class="header-search-trigger" id="header-search-trigger" title="Search Food">
-						<i class="fa-solid fa-magnifying-glass"></i>
-					</button>
-					<div class="header-search-box" id="header-search-box">
-						<i class="fa-solid fa-magnifying-glass search-inner-icon"></i>
-						<input type="text" id="top-food-search" class="top-food-search-input" placeholder="Search food (e.g. biryani, pizza...)" autocomplete="off" />
-						<button type="button" class="header-search-close" id="header-search-close">
-							<i class="fa-solid fa-xmark"></i>
-						</button>
-					</div>
-					<div class="top-search-dropdown" id="top-search-dropdown"></div>
-				</div>
-				<button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle Theme">
-					<i class="fa-solid fa-moon"></i>
-				</button>
 				<button type="button" class="cart-btn" onclick="openSideCart()"
 					style="cursor: pointer; border: none;">
 					<i class="fa-solid fa-bag-shopping"></i> View Cart <span
@@ -1168,6 +1176,61 @@ document.addEventListener('DOMContentLoaded', () => {
     recalculateCartState();
     renderCartData(localCartState);
 });
+</script>
+<script>
+/* =========================================================
+   CLICK CHOW HEADER SEARCH - EXPAND ONLY (menu.jsp)
+   ========================================================= */
+(function() {
+    const searchButton = document.getElementById("searchButton");
+    const searchBar = document.getElementById("searchBar");
+    const searchInput = document.getElementById("searchInput");
+    const headerSearch = document.getElementById("headerSearch");
+
+    if (!searchButton || !searchBar || !searchInput || !headerSearch) return;
+
+    function openSearch() {
+        headerSearch.classList.add("active");
+        setTimeout(function () { searchInput.focus(); }, 200);
+    }
+
+    function closeSearch() {
+        headerSearch.classList.remove("active");
+        searchInput.value = "";
+    }
+
+    searchButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (headerSearch.classList.contains("active")) {
+            closeSearch();
+        } else {
+            openSearch();
+        }
+    });
+
+    searchInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            const query = searchInput.value.trim();
+            if (query.length > 0) {
+                window.location.href = 'searchFood?q=' + encodeURIComponent(query);
+            }
+        }
+    });
+
+    document.addEventListener("click", function (event) {
+        if (!headerSearch.contains(event.target)) {
+            closeSearch();
+        }
+    });
+
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+            closeSearch();
+        }
+    });
+})();
 </script>
 <script src="app.js"></script>
 </body>

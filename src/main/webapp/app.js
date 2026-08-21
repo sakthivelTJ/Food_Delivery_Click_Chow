@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initTopHeaderSearch();
     initThemeToggle();
     handleMenuHighlight();
+    initSearchResultClickAnimations();
 });
 
 /**
@@ -266,17 +267,19 @@ function performTopSearch(query) {
 }
 
 function onTopSearchResultClick(e, targetUrl) {
-    const dropdown = document.getElementById("top-search-dropdown");
-    if (dropdown) dropdown.classList.remove("active");
+    e.preventDefault();
 
-    // If currently already on menu page, scroll directly if same restaurant, else navigate
+    const clickedItem = e.target.closest('.top-search-item') || e.target.closest('.search-item-card');
+
+    // If currently already on menu page with same restaurant, scroll directly
     if (window.location.pathname.endsWith("/menu") || window.location.pathname.endsWith("menu.jsp")) {
         const urlObj = new URL(targetUrl, window.location.origin);
         const targetRestId = urlObj.searchParams.get("restaurantId");
         const currentRestId = new URLSearchParams(window.location.search).get("restaurantId");
 
         if (targetRestId && currentRestId && targetRestId === currentRestId) {
-            e.preventDefault();
+            const dropdown = document.getElementById("top-search-dropdown");
+            if (dropdown) dropdown.classList.remove("active");
             const hash = urlObj.hash;
             if (hash) {
                 window.location.hash = hash;
@@ -285,6 +288,95 @@ function onTopSearchResultClick(e, targetUrl) {
             return;
         }
     }
+
+    // Play glow burst animation, then navigate
+    if (clickedItem) {
+        clickedItem.classList.add('search-item-selected');
+        createClickEffects(clickedItem, e);
+    }
+
+    setTimeout(() => {
+        window.location.href = targetUrl;
+    }, 700);
+}
+
+/**
+ * Creates ripple + flash visual effects on a clicked element
+ */
+function createClickEffects(element, event) {
+    // Ensure element has relative/absolute positioning for overlay children
+    const style = window.getComputedStyle(element);
+    if (style.position === 'static') {
+        element.style.position = 'relative';
+    }
+    element.style.overflow = 'hidden';
+
+    // Create ripple circle at click position
+    const ripple = document.createElement('span');
+    ripple.className = 'click-ripple';
+    const rect = element.getBoundingClientRect();
+    const x = (event.clientX || rect.left + rect.width / 2) - rect.left;
+    const y = (event.clientY || rect.top + rect.height / 2) - rect.top;
+    ripple.style.left = x + 'px';
+    ripple.style.top = y + 'px';
+    element.appendChild(ripple);
+
+    // Create flash overlay
+    const flash = document.createElement('span');
+    flash.className = 'click-flash';
+    element.appendChild(flash);
+
+    // Clean up after animation
+    setTimeout(() => {
+        if (ripple.parentNode) ripple.remove();
+        if (flash.parentNode) flash.remove();
+    }, 800);
+}
+
+/**
+ * Intercept clicks on search results page cards (.btn-view-menu)
+ */
+function initSearchResultClickAnimations() {
+    document.addEventListener('click', function(e) {
+        const viewMenuBtn = e.target.closest('.btn-view-menu');
+        if (!viewMenuBtn) return;
+
+        const card = viewMenuBtn.closest('.menu-card');
+        if (!card || card.classList.contains('card-selected')) return;
+
+        e.preventDefault();
+        const targetUrl = viewMenuBtn.getAttribute('href');
+
+        // Apply glow burst to the card
+        card.classList.add('card-selected');
+        createClickEffects(card, e);
+
+        // Scroll the card to center of viewport during animation
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        // Navigate after animation completes
+        setTimeout(() => {
+            window.location.href = targetUrl;
+        }, 750);
+    });
+
+    // Also handle hero search dropdown item clicks
+    document.addEventListener('click', function(e) {
+        const heroItem = e.target.closest('.search-item-card');
+        if (!heroItem || heroItem.classList.contains('search-item-selected')) return;
+
+        // Only intercept if it has an href (is a link)
+        const href = heroItem.getAttribute('href');
+        if (!href) return;
+
+        e.preventDefault();
+        heroItem.classList.add('search-item-selected');
+        createClickEffects(heroItem, e);
+
+        setTimeout(() => {
+            window.location.href = href;
+        }, 700);
+    });
 }
 
 function escapeHtml(str) {
