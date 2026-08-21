@@ -706,7 +706,7 @@ a.logo {
                 + '<div class="cart-item-info">'
                 + '<h4 style="font-size: 1.1rem; font-weight: 800; color: #ffffff; margin-bottom: 6px; display: block; line-height: 1.3;">' + item.name + '</h4>'
                 + '<div style="font-size: 13px; color: #9ca3af; margin-bottom: 10px;">'
-                + 'Price: <strong style="color: #ff5a36; font-size: 14px;">₹' + item.price.toFixed(2) + '</strong>'
+                + 'Price: <strong style="color: #ff5a36; font-size: 14px;">₹' + item.price.toFixed(2) + '</strong><br>'
                 + 'Subtotal: <strong style="color: #10b981; font-size: 14px;">₹' + itemSubtotal + '</strong>'
                 + '</div>'
                 + '<div class="cart-item-controls" style="display: flex; align-items: center; gap: 12px;">'

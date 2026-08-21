@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.List, com.tap.model.Menu, com.tap.model.Restaurant, java.util.Map" %>
+<%@ page import="java.util.List, com.tap.model.Menu, com.tap.model.Restaurant, java.util.Map, com.tap.model.user" %>
+<%
+user loggedInUser = (user) session.getAttribute("loggedInUser");
+if (loggedInUser == null) {
+    response.sendRedirect("login.jsp");
+    return;
+}
+%>
 <!doctype html>
 <html lang="en" data-theme="dark">
 <head>
@@ -88,6 +95,68 @@
         [data-theme="light"] .nav-links a { color: #4b5563; }
         [data-theme="light"] .nav-links a:hover { color: #090b12; }
         [data-theme="light"] .login-btn { color: #090b12; }
+        
+        .profile {
+            position: relative;
+            display: inline-block;
+        }
+        .profile-btn {
+            padding: 12px 22px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #ff5a36, #ec4899);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 90, 54, .3);
+        }
+        .profile-card {
+            position: absolute;
+            right: 0;
+            top: 65px;
+            width: 320px;
+            background: rgba(26, 31, 44, .96);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 20px;
+            padding: 20px;
+            display: none;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, .45);
+            z-index: 1000;
+        }
+        .profile-card h3 {
+            color: #fff;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin: 14px 0;
+            color: #b9c0ca;
+            font-size: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, .08);
+            padding-bottom: 10px;
+        }
+        .row span:last-child {
+            color: #fff;
+            font-weight: 600;
+        }
+        .profile-card a {
+            display: block;
+            text-decoration: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 12px;
+            background: #232938;
+            color: #fff;
+            transition: .3s;
+            text-align: center;
+        }
+        .profile-card a:hover {
+            background: linear-gradient(135deg, #ff5a36, #ec4899);
+        }
     </style>
 </head>
 <body>
@@ -104,8 +173,26 @@
                 <a href="#">Contact</a>
             </nav>
             <div class="header-actions">
-                <a href="login.jsp" class="login-btn">Login</a>
-                <a href="register.jsp" class="register-btn">Sign Up</a>
+                <div class="profile">
+                    <button class="profile-btn" onclick="toggleProfile()">
+                        👤 <%=loggedInUser.getUser_name()%>
+                    </button>
+                    <div class="profile-card" id="profileCard">
+                        <h3>My Account</h3>
+                        <div class="row">
+                            <span>Username</span> <span><%=loggedInUser.getUser_name()%></span>
+                        </div>
+                        <div class="row">
+                            <span>Email</span> <span><%=loggedInUser.getEmail()%></span>
+                        </div>
+                        <div class="row">
+                            <span>Role</span> <span><%=loggedInUser.getRole()%></span>
+                        </div>
+                        <a href="orderHistory"><i class="fa-solid fa-clock-rotate-left"></i> Order History</a>
+                        <a href="editProfile.jsp"><i class="fa-solid fa-pen"></i> Edit Profile</a>
+                        <a href="LogoutServlet"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -204,6 +291,22 @@
 
     <script src="app.js"></script>
     <script>
+        function toggleProfile() {
+            var card = document.getElementById("profileCard");
+            if (card.style.display == "block") {
+                card.style.display = "none";
+            } else {
+                card.style.display = "block";
+            }
+        }
+        window.onclick = function(event) {
+            if (!event.target.matches('.profile-btn')) {
+                var card = document.getElementById("profileCard");
+                if (card && card.style.display == "block") {
+                    card.style.display = "none";
+                }
+            }
+        }
         document.addEventListener('DOMContentLoaded', function() {
             const query = "<%= q.replace("\"", "\\\"") %>";
             const topSearch = document.getElementById('top-food-search');

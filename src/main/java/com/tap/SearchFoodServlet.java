@@ -23,6 +23,11 @@ public class SearchFoodServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        jakarta.servlet.http.HttpSession session = req.getSession();
+        if (session.getAttribute("loggedInUser") == null) {
+            resp.sendRedirect("login.jsp");
+            return;
+        }
         String ajax = req.getParameter("ajax");
         String rawQuery = req.getParameter("q");
         String query = rawQuery;
