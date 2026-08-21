@@ -3457,25 +3457,15 @@ img {
     box-shadow: 0 5px 15px rgba(255, 90, 54, 0.35);
 }
 
-/* Blur other navbar items and increase header density when search is active */
-.header .logo,
-.header .nav-links,
-.header .profile,
-.header .header-actions > * {
-    transition: filter 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+/* Add blur transition for navbar links */
+.nav-links a {
+    transition: filter 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* When Pattern A (Search Bar) is Active */
-.header:has(.header-search.active) .logo,
-.header:has(.header-search.active) .nav-links,
-.header:has(.header-search.active) .profile,
-.header:has(.header-search.active) .header-actions > *:not(.header-search),
-.header:has(.search-bar.active) .logo,
-.header:has(.search-bar.active) .nav-links,
-.header:has(.search-bar.active) .profile,
-.header:has(.search-bar.active) .header-actions > *:not(.header-search) {
-    filter: blur(12px);
-    opacity: 0 !important;
+/* When Pattern A (Search Bar) is Active, only blur the navigation links */
+.header:has(.header-search.active) .nav-links a,
+.header:has(.search-bar.active) .nav-links a {
+    filter: blur(8px);
     pointer-events: none;
     user-select: none;
 }
