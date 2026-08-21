@@ -30,7 +30,7 @@ if (loggedInUser == null) {
         
         .result-count { display: inline-block; background: #181d2b; padding: 8px 20px; border-radius: 20px; font-weight: 600; margin-top: 20px; border: 1px solid rgba(255,255,255,0.05); }
         
-        .top-back-bar { padding: 15px 5%; background: rgba(9, 11, 18, 0.85); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .top-back-bar { padding: 15px 5%; background: rgba(9, 11, 18, 0.85);  }
         .btn-back-nav { color: #aeb8cc; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: 0.3s; }
         .btn-back-nav:hover { color: #ff5a36; }
         
