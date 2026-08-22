@@ -1,18 +1,18 @@
 package com.tap.utility;
 
 import java.util.List;
-import com.tap.daoIMP.userDAOImp;
-import com.tap.model.user;
+import com.tap.daoIMP.MenuDAOImp;
+import com.tap.model.Menu;
 
 public class test {
 
 	public static void main(String[] args) {
 		try {
-			userDAOImp dao = new userDAOImp();
-			List<user> users = dao.getAllUser();
-			System.out.println("--- USER DIRECTORY ---");
-			for (user u : users) {
-				System.out.println("ID: " + u.getUser_id() + " | Name: " + u.getUser_name() + " | Phone: " + u.getPhoneNumber());
+			MenuDAOImp dao = new MenuDAOImp();
+			List<Menu> menus = dao.getAllMenu();
+			System.out.println("--- MENU ITEMS ---");
+			for (Menu m : menus) {
+				System.out.println("ID: " + m.getMenuID() + " | Name: " + m.getItemName() + " | Path: " + m.getImagePath() + " | Price: " + m.getPrice());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

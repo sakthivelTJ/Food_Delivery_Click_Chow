@@ -229,12 +229,18 @@ if (loggedInUser == null) {
 
     <div class="food-grid">
         <%! 
-        public String getUniqueDishImage(com.tap.model.Menu menu) {
+        public String getUniqueDishImage(com.tap.model.Menu menu, ServletContext context) {
             if (menu == null) return "assets/images/biryani.png";
             String name = menu.getItemName() != null ? menu.getItemName().toLowerCase() : "";
             String customPath = menu.getImagePath();
-            if (customPath != null && !customPath.trim().isEmpty() && !customPath.startsWith("images/menu/") && !customPath.contains("biryani.png")) {
-                return customPath;
+            if (customPath != null && !customPath.trim().isEmpty() && !customPath.contains("biryani.png")) {
+                String realPath = context.getRealPath(customPath);
+                if (realPath != null) {
+                    java.io.File file = new java.io.File(realPath);
+                    if (file.exists()) {
+                        return customPath;
+                    }
+                }
             }
             if (name.contains("biryani") || name.contains("rice") || name.contains("pulao") || name.contains("thali") || name.contains("tiffin") || name.contains("dosa") || name.contains("idli")) {
                 return "assets/images/biryani.png";
@@ -266,7 +272,7 @@ if (loggedInUser == null) {
                 String rName = (r != null) ? r.getName() : "ClickChow Restaurant";
         %>
             <div class="menu-card" id="menu-item-<%= menu.getMenuID() %>">
-                <img src="<%= getUniqueDishImage(menu) %>" alt="<%= menu.getItemName() %>" onerror="this.onerror=null; this.src='assets/images/paneertikka.png';">
+                <img src="<%= getUniqueDishImage(menu, application) %>" alt="<%= menu.getItemName() %>" onerror="this.onerror=null; this.src='assets/images/paneertikka.png';">
                 <div class="card-content">
                     <div class="restaurant-badge"><i class="fa-solid fa-store"></i> <%= rName %></div>
                     <h2><%= menu.getItemName() %></h2>

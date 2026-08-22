@@ -145,16 +145,21 @@
 
 	<div class="food-grid">
 
-		<%!public String getUniqueDishImage(com.tap.model.Menu menu) {
+		<%!public String getUniqueDishImage(com.tap.model.Menu menu, ServletContext context) {
 		if (menu == null)
 			return "assets/images/biryani.png";
 		String name = menu.getItemName() != null ? menu.getItemName().toLowerCase() : "";
 		String customPath = menu.getImagePath();
 
-		// If customPath is valid asset path (not missing images/menu/ folder), use it
-		if (customPath != null && !customPath.trim().isEmpty() && !customPath.startsWith("images/menu/")
-				&& !customPath.contains("biryani.png")) {
-			return customPath;
+		// If customPath is valid asset path (exists in project), use it
+		if (customPath != null && !customPath.trim().isEmpty() && !customPath.contains("biryani.png")) {
+			String realPath = context.getRealPath(customPath);
+			if (realPath != null) {
+				java.io.File file = new java.io.File(realPath);
+				if (file.exists()) {
+					return customPath;
+				}
+			}
 		}
 
 		// Match food dish keywords to available project food images
@@ -240,7 +245,7 @@
 
 		<div class="menu-card" id="menu-item-<%=menu.getMenuID()%>" data-menuid="<%=menu.getMenuID()%>" data-itemname="<%=menu.getItemName().toLowerCase()%>">
 
-			<img src="<%=getUniqueDishImage(menu)%>"
+			<img src="<%=getUniqueDishImage(menu, application)%>"
 				alt="<%=menu.getItemName()%>"
 				onerror="this.onerror=null; this.src='assets/images/paneertikka.png';">
 
@@ -276,7 +281,7 @@
 						value="<%=menu.getItemName()%>">
 					<input type="hidden" name="itemprice" value="<%=menu.getPrice()%>">
 					<input type="hidden" name="itemimage"
-						value="<%=getUniqueDishImage(menu)%>">
+						value="<%=getUniqueDishImage(menu, application)%>">
 					<button type="submit" class="btn" value="Add to cart">🛒
 						Add to Cart</button>
 

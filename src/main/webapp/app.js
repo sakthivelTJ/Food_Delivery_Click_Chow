@@ -15,14 +15,16 @@ document.addEventListener("DOMContentLoaded", () => {
  * Hero Showcase Food Picture Auto-Slider
  */
 function initHeroSlider() {
-    const heroShowcaseItems = [
-        { img: "assets/images/burger.png", title: "Gourmet Burger", price: "₹199", rating: "4.9" },
-        { img: "assets/images/pizza.png", title: "Pepperoni Pizza", price: "₹349", rating: "4.8" },
-        { img: "assets/images/biryani.png", title: "Special Biryani", price: "₹299", rating: "5.0" },
-        { img: "assets/images/sushi.png", title: "Salmon Sushi", price: "₹450", rating: "4.9" },
-        { img: "assets/images/paneertikka.png", title: "Paneer Tikka", price: "₹240", rating: "4.7" },
-        { img: "assets/images/dessert.png", title: "Choco Lava Cake", price: "₹150", rating: "4.9" }
-    ];
+    const heroShowcaseItems = window.heroShowcaseItems && window.heroShowcaseItems.length > 0 
+        ? window.heroShowcaseItems 
+        : [
+            { img: "assets/images/burger.png", title: "Gourmet Burger", price: "₹199", rating: "4.9" },
+            { img: "assets/images/pizza.png", title: "Pepperoni Pizza", price: "₹349", rating: "4.8" },
+            { img: "assets/images/biryani.png", title: "Special Biryani", price: "₹299", rating: "5.0" },
+            { img: "assets/images/sushi.png", title: "Salmon Sushi", price: "₹450", rating: "4.9" },
+            { img: "assets/images/paneertikka.png", title: "Paneer Tikka", price: "₹240", rating: "4.7" },
+            { img: "assets/images/dessert.png", title: "Choco Lava Cake", price: "₹150", rating: "4.9" }
+        ];
 
     let heroIdx = 0;
     const imgEl = document.getElementById("hero-slider-img");
@@ -54,7 +56,7 @@ function initHeroSlider() {
  * Helper to resolve appropriate local food asset image by dish name
  */
 function resolveFoodImage(itemName, imagePath) {
-    if (imagePath && imagePath.trim() !== "" && !imagePath.startsWith("images/menu/") && !imagePath.contains("biryani.png")) {
+    if (imagePath && imagePath.trim() !== "" && !imagePath.startsWith("images/menu/") && !imagePath.includes("biryani.png")) {
         return imagePath;
     }
     const name = (itemName || "").toLowerCase();

@@ -2,6 +2,39 @@
 	pageEncoding="UTF-8"%>
 <%@ page
 	import="java.util.List, com.tap.model.Restaurant, com.tap.model.Carts, com.tap.model.CartItems"%>
+<%!
+	String resolveFoodImageJava(String itemName, String imagePath, ServletContext context) {
+		if (imagePath != null && !imagePath.trim().isEmpty() && !imagePath.contains("biryani.png")) {
+			String realPath = context.getRealPath(imagePath);
+			if (realPath != null) {
+				java.io.File file = new java.io.File(realPath);
+				if (file.exists()) {
+					return imagePath;
+				}
+			}
+		}
+		String name = (itemName != null ? itemName : "").toLowerCase();
+		if (name.contains("biryani") || name.contains("rice") || name.contains("pulao") || name.contains("thali") || name.contains("tiffin") || name.contains("dosa") || name.contains("idli")) {
+			return "assets/images/biryani.png";
+		}
+		if (name.contains("burger") || name.contains("sandwich") || name.contains("wrap") || name.contains("roll")) {
+			return "assets/images/burger.png";
+		}
+		if (name.contains("pizza") || name.contains("naan") || name.contains("roti") || name.contains("bread") || name.contains("pasta") || name.contains("kulcha")) {
+			return "assets/images/pizza.png";
+		}
+		if (name.contains("paneer") || name.contains("tikka") || name.contains("tandoori") || name.contains("kebab") || name.contains("chicken") || name.contains("mutton") || name.contains("lamb") || name.contains("starter") || name.contains("curry") || name.contains("masala") || name.contains("fry") || name.contains("rasam") || name.contains("chukka") || name.contains("roast")) {
+			return "assets/images/paneertikka.png";
+		}
+		if (name.contains("sushi") || name.contains("noodle") || name.contains("ramen") || name.contains("fish") || name.contains("seafood") || name.contains("asian") || name.contains("prawn") || name.contains("lobster")) {
+			return "assets/images/sushi.png";
+		}
+		if (name.contains("dessert") || name.contains("cake") || name.contains("ice cream") || name.contains("sweet") || name.contains("shake") || name.contains("coffee") || name.contains("tea") || name.contains("drink") || name.contains("lassi") || name.contains("payasam") || name.contains("kesari") || name.contains("jamun") || name.contains("chocolate")) {
+			return "assets/images/dessert.png";
+		}
+		return "assets/images/paneertikka.png";
+	}
+%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -305,7 +338,7 @@
 		<!-- Background Loop Video -->
 		<video autoplay loop muted playsinline class="hero-bg-video">
 			<source
-				src="D:\Advance_Java\Wokspace\JEEProject1\src\main\webapp\assets\bg_video.mp4"
+				src="https://b.zmtcdn.com/data/file_assets/2627bbed9d6c068e50d2aadcca11ddbb1743095925.mp4"
 				type="video/mp4">
 			Your browser does not support the video tag.
 		</video>
@@ -362,16 +395,25 @@
 			</div>
 
 			<!-- Hero Image Showcase -->
+			<%
+				com.tap.daoIMP.MenuDAOImp heroMenuDAO = new com.tap.daoIMP.MenuDAOImp();
+				java.util.List<com.tap.model.Menu> heroMenuList = heroMenuDAO.getAllMenu();
+				com.tap.model.Menu firstHeroItem = (heroMenuList != null && !heroMenuList.isEmpty()) ? heroMenuList.get(0) : null;
+				String firstHeroImg = firstHeroItem != null ? resolveFoodImageJava(firstHeroItem.getItemName(), firstHeroItem.getImagePath(), application) : "assets/images/burger.png";
+				String firstHeroName = firstHeroItem != null ? firstHeroItem.getItemName() : "Gourmet Burger";
+				String firstHeroPrice = firstHeroItem != null ? "₹" + (int)firstHeroItem.getPrice() : "₹199";
+				String firstHeroRating = (firstHeroItem != null && firstHeroItem.getRating() != null) ? String.valueOf(firstHeroItem.getRating()) : "4.9";
+			%>
 			<div class="hero-image-wrapper">
 				<div class="hero-blob"></div>
 				<div class="hero-image-card card-floating-1">
-					<img src="assets/images/burger.png" alt="Delicious Burger"
+					<img src="<%= firstHeroImg %>" alt="<%= firstHeroName %>"
 						id="hero-slider-img" />
 					<div class="floating-badge badge-top-right">
 						<span class="badge-rating" id="hero-badge-rating"><i
-							class="fa-solid fa-star"></i> 4.9</span>
-						<h4 id="hero-badge-title">Gourmet Burger</h4>
-						<p id="hero-badge-price">₹199</p>
+							class="fa-solid fa-star"></i> <%= firstHeroRating %></span>
+						<h4 id="hero-badge-title"><%= firstHeroName %></h4>
+						<p id="hero-badge-price"><%= firstHeroPrice %></p>
 					</div>
 				</div>
 				<!-- Small floaters -->
@@ -386,6 +428,12 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- Scroll Down Indicator -->
+		<a href="#restaurants-section" class="scroll-down-indicator">
+			<span>Scroll Down</span>
+			<i class="fa-solid fa-chevron-down"></i>
+		</a>
 	</section>
 
 	<!-- Info / Flexbox Features Section -->
@@ -1018,5 +1066,28 @@
         }
     });
 	</script>
+	<script>
+		// Dynamically generated food items from the database for the hero slider
+		window.heroShowcaseItems = [
+			<% 
+				com.tap.daoIMP.MenuDAOImp sliderMenuDAO = new com.tap.daoIMP.MenuDAOImp();
+				java.util.List<com.tap.model.Menu> sliderMenuList = sliderMenuDAO.getAllMenu();
+				int maxSliderItems = sliderMenuList != null ? Math.min(sliderMenuList.size(), 15) : 0;
+				for (int i = 0; i < maxSliderItems; i++) {
+					com.tap.model.Menu item = sliderMenuList.get(i);
+					String ratingStr = item.getRating() != null ? String.valueOf(item.getRating()) : "4.8";
+			%>
+			{
+				img: "<%= resolveFoodImageJava(item.getItemName(), item.getImagePath(), application) %>",
+				title: "<%= item.getItemName().replace("\"", "\\\"") %>",
+				price: "₹<%= (int)item.getPrice() %>",
+				rating: "<%= ratingStr %>"
+			}<%= (i < maxSliderItems - 1) ? "," : "" %>
+			<% 
+				}
+			%>
+		];
+	</script>
+	<script src="app.js"></script>
 </body>
 </html>
