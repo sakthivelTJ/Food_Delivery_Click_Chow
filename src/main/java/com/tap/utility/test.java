@@ -1,24 +1,23 @@
 package com.tap.utility;
 
 import java.util.List;
-
 import com.tap.daoIMP.userDAOImp;
 import com.tap.model.user;
 
 public class test {
 
 	public static void main(String[] args) {
-		
-		
-		userDAOImp userDAOImp = new userDAOImp();
-		
-		
-		
-		
-		System.out.println("User Added Successfully");
-		
+		try {
+			userDAOImp dao = new userDAOImp();
+			List<user> users = dao.getAllUser();
+			System.out.println("--- USER DIRECTORY ---");
+			for (user u : users) {
+				System.out.println("ID: " + u.getUser_id() + " | Name: " + u.getUser_name() + " | Phone: " + u.getPhoneNumber());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-
 }
 
 //***************

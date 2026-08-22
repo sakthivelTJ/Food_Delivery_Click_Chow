@@ -43,6 +43,7 @@ public class AdminUserServlet extends HttpServlet {
                 String email = req.getParameter("email");
                 String role = normalizeRole(req.getParameter("role"));
                 String address = req.getParameter("address");
+                String phoneNumber = req.getParameter("phoneNumber");
 
                 user existingUser = userDAO.getUser(userId);
                 if (existingUser != null) {
@@ -50,6 +51,7 @@ public class AdminUserServlet extends HttpServlet {
                     existingUser.setEmail(email);
                     existingUser.setRole(role);
                     existingUser.setAddress(address);
+                    existingUser.setPhoneNumber(phoneNumber);
 
                     String passwordParam = req.getParameter("password");
                     if (passwordParam != null && !passwordParam.trim().isEmpty()) {
@@ -69,9 +71,10 @@ public class AdminUserServlet extends HttpServlet {
                 String rawPassword = req.getParameter("password");
                 String role = normalizeRole(req.getParameter("role"));
                 String address = req.getParameter("address");
+                String phoneNumber = req.getParameter("phoneNumber");
 
                 String hashedPassword = BCrypt.hashpw(rawPassword, BCrypt.gensalt());
-                user newUser = new user(username, email, hashedPassword, role, address);
+                user newUser = new user(username, email, hashedPassword, role, address, phoneNumber);
 
                 int result = userDAO.addUser(newUser);
                 if (result > 0) {

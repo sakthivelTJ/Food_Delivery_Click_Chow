@@ -16,8 +16,8 @@ import com.tap.utility.DBconnection;
 
 public class userDAOImp implements userDAO {
 
-	public static final String Insert_Query = "INSERT INTO user (user_name , email ,password  , role ,createdDate , lastLogIN ,address) VALUES (?,?,?,?,?,?,?)";
-	public static final String Update_Query = "UPDATE user SET user_name = ? , email = ?, password = ? , role = ? ,lastLogIN = ?, address=? WHERE user_id = ?";
+	public static final String Insert_Query = "INSERT INTO user (user_name , email ,password  , role ,createdDate , lastLogIN ,address, phoneNumber) VALUES (?,?,?,?,?,?,?,?)";
+	public static final String Update_Query = "UPDATE user SET user_name = ? , email = ?, password = ? , role = ? ,lastLogIN = ?, address=?, phoneNumber=? WHERE user_id = ?";
 
 	private String[] getRoleVariants(String role) {
 		String r = role != null ? role.trim().toLowerCase().replace("_", "").replace(" ", "") : "customer";
@@ -46,6 +46,7 @@ public class userDAOImp implements userDAO {
 				stat.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
 				stat.setTimestamp(6, new Timestamp(System.currentTimeMillis()));
 				stat.setString(7, user.getAddress());
+				stat.setString(8, user.getPhoneNumber());
 
 				i = stat.executeUpdate();
 				user.setRole(v);
@@ -83,8 +84,9 @@ public class userDAOImp implements userDAO {
 				String createdDate = res.getString("createdDate");
 				String lastLogIN = res.getString("lastLogIN");
 				String address = res.getString("address");
+				String phoneNumber = res.getString("phoneNumber");
 
-				user = new user(id, name, email, password, role, createdDate, lastLogIN, address);
+				user = new user(id, name, email, password, role, createdDate, lastLogIN, address, phoneNumber);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -106,7 +108,8 @@ public class userDAOImp implements userDAO {
 				stat.setString(4, v);
 				stat.setString(5, user.getLastLogIN());
 				stat.setString(6, user.getAddress());
-				stat.setInt(7, user.getUser_id());
+				stat.setString(7, user.getPhoneNumber());
+				stat.setInt(8, user.getUser_id());
 
 				int i = stat.executeUpdate();
 				user.setRole(v);
@@ -154,6 +157,7 @@ public class userDAOImp implements userDAO {
 				user.setPassword(res.getString("password"));
 				user.setRole(res.getString("role"));
 				user.setAddress(res.getString("address"));
+				user.setPhoneNumber(res.getString("phoneNumber"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -189,7 +193,8 @@ public class userDAOImp implements userDAO {
 		String createdDate = res.getString("createdDate");
 		String lastLogIN = res.getString("lastLogIN");
 		String address = res.getString("address");
+		String phoneNumber = res.getString("phoneNumber");
 
-		return new user(id, name, email, password, role, createdDate, lastLogIN, address);
+		return new user(id, name, email, password, role, createdDate, lastLogIN, address, phoneNumber);
 	}
 }

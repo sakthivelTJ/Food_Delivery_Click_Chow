@@ -34,9 +34,11 @@ public class UpdateProfileServlet extends HttpServlet {
             return;
         }
 
+
         String username = req.getParameter("username");
         String email = req.getParameter("email");
         String address = req.getParameter("address");
+        String phoneNumber = req.getParameter("phoneNumber");
         String newPassword = req.getParameter("new_password");
 
         if (username != null && !username.trim().isEmpty()) {
@@ -49,6 +51,10 @@ public class UpdateProfileServlet extends HttpServlet {
 
         if (address != null) {
             userObj.setAddress(address.trim());
+        }
+
+        if (phoneNumber != null) {
+            userObj.setPhoneNumber(phoneNumber.trim());
         }
 
         if (newPassword != null && !newPassword.trim().isEmpty()) {

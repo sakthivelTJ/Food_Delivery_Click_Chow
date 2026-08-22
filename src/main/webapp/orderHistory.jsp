@@ -623,6 +623,9 @@ body {
 							<span>Email</span> <span><%=user.getEmail()%></span>
 						</div>
 						<div class="row">
+							<span>Phone</span> <span><%=user.getPhoneNumber() != null ? user.getPhoneNumber() : "N/A"%></span>
+						</div>
+						<div class="row">
 							<span>Role</span> <span><%=user.getRole()%></span>
 						</div>
 

@@ -1,4 +1,4 @@
-﻿
+
 
 
 
@@ -107,6 +107,7 @@ CREATE TABLE `user` (
   `createdDate` datetime DEFAULT NULL,
   `lastLogIN` datetime DEFAULT NULL,
   `address` text,
+  `phoneNumber` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`user_id`,`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 

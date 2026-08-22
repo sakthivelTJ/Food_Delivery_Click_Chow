@@ -148,6 +148,7 @@
                         <th>Username</th>
                         <th>Email</th>
                         <th>Role</th>
+                        <th>Phone</th>
                         <th>Address</th>
                         <th>Created Date</th>
                         <th>Actions</th>
@@ -179,6 +180,9 @@
                                 <span class="badge-status badge-pending">👤 Customer</span>
                             <% } %>
                         </td>
+                        <td style="color: var(--text-muted); font-size: 14px;">
+                            <%= u.getPhoneNumber() != null ? u.getPhoneNumber() : "N/A" %>
+                        </td>
                         <td style="max-width: 200px; color: var(--text-muted); font-size: 14px;">
                             <%= u.getAddress() != null && !u.getAddress().isEmpty() ? u.getAddress() : "Not specified" %>
                         </td>
@@ -192,7 +196,8 @@
                                     '<%= u.getUser_name().replace("'", "\\'") %>',
                                     '<%= u.getEmail() != null ? u.getEmail().replace("'", "\\'") : "" %>',
                                     '<%= roleStr.replace("'", "\\'") %>',
-                                    '<%= u.getAddress() != null ? u.getAddress().replace("'", "\\'") : "" %>'
+                                    '<%= u.getAddress() != null ? u.getAddress().replace("'", "\\'") : "" %>',
+                                    '<%= u.getPhoneNumber() != null ? u.getPhoneNumber().replace("'", "\\'") : "" %>'
                                 )">Edit</button>
                                 
                                 <% if (u.getUser_id() != adminUser.getUser_id()) { %>
@@ -211,7 +216,7 @@
                        } else { 
                     %>
                     <tr>
-                        <td colspan="7" style="text-align: center; padding: 40px; color: var(--text-muted);">
+                        <td colspan="8" style="text-align: center; padding: 40px; color: var(--text-muted);">
                             No registered users found. Click <strong>+ Add New User</strong> to create an account.
                         </td>
                     </tr>
@@ -256,6 +261,11 @@
                 <div class="form-group">
                     <label>New Password (Leave blank to keep current)</label>
                     <input type="password" name="password" id="editPassword" class="form-control" placeholder="••••••••">
+                </div>
+
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label>Phone Number</label>
+                    <input type="tel" name="phoneNumber" id="editPhoneNumber" class="form-control" placeholder="Phone number...">
                 </div>
 
                 <div class="form-group" style="grid-column: 1 / -1;">
@@ -308,6 +318,11 @@
                 </div>
 
                 <div class="form-group" style="grid-column: 1 / -1;">
+                    <label>Phone Number</label>
+                    <input type="tel" name="phoneNumber" class="form-control" placeholder="User phone number...">
+                </div>
+
+                <div class="form-group" style="grid-column: 1 / -1;">
                     <label>Address</label>
                     <input type="text" name="address" class="form-control" placeholder="User delivery address...">
                 </div>
@@ -329,7 +344,7 @@
         document.getElementById(id).classList.remove('active');
     }
 
-    function editUser(id, username, email, role, address) {
+    function editUser(id, username, email, role, address, phoneNumber) {
         document.getElementById('editUserTitle').innerText = 'Edit User #' + id;
         document.getElementById('editUserId').value = id;
         document.getElementById('editUsername').value = username;
@@ -343,6 +358,7 @@
             document.getElementById('editRole').value = 'Customer';
         }
         document.getElementById('editAddress').value = address;
+        document.getElementById('editPhoneNumber').value = phoneNumber;
         document.getElementById('editPassword').value = '';
         openModal('editUserModal');
     }

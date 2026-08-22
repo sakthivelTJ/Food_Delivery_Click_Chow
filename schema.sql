@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS user (
     role VARCHAR(50) DEFAULT 'Customer',
     createdDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     lastLogIN TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    address TEXT
+    address TEXT,
+    phoneNumber VARCHAR(20) DEFAULT NULL
 );
 
 -- 2. Create Restaurant Table

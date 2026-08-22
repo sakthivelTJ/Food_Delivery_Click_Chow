@@ -425,6 +425,9 @@
 						<div class="row">
 							<span>Address</span> <span><%=user.getAddress()%></span>
 						</div>
+						<div class="row">
+							<span>Phone</span> <span><%=user.getPhoneNumber() != null ? user.getPhoneNumber() : "N/A" %></span>
+						</div>
 
 						<div class="row">
 							<span>Role</span> <span><%=user.getRole()%></span>

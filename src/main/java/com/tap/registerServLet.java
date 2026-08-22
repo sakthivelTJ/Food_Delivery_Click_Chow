@@ -28,10 +28,11 @@ public class registerServLet extends HttpServlet {
 		String password = req.getParameter("password");
 		String role = req.getParameter("role");
 		String address = req.getParameter("address");
+		String phoneNumber = req.getParameter("phoneNumber");
 		
 		String hashpw = BCrypt.hashpw(password, BCrypt.gensalt(12));
 		
-		user user = new user(username, email, hashpw, role,address);
+		user user = new user(username, email, hashpw, role, address, phoneNumber);
 		
 		userDAOImp userDAOImp = new userDAOImp();
 		int res = userDAOImp.addUser(user);

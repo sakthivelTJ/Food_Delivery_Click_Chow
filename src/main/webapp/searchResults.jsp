@@ -186,6 +186,9 @@ if (loggedInUser == null) {
                             <span>Email</span> <span><%=loggedInUser.getEmail()%></span>
                         </div>
                         <div class="row">
+                            <span>Phone</span> <span><%=loggedInUser.getPhoneNumber() != null ? loggedInUser.getPhoneNumber() : "N/A"%></span>
+                        </div>
+                        <div class="row">
                             <span>Role</span> <span><%=loggedInUser.getRole()%></span>
                         </div>
                         <a href="orderHistory"><i class="fa-solid fa-clock-rotate-left"></i> Order History</a>

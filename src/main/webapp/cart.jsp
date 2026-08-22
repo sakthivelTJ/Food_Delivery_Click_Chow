@@ -322,6 +322,9 @@ a.logo {
 						<span>Address</span> <span><%=u.getAddress()%></span>
 					</div>
 					<div class="row">
+						<span>Phone</span> <span><%=u.getPhoneNumber() != null ? u.getPhoneNumber() : "N/A"%></span>
+					</div>
+					<div class="row">
 						<span>Role</span> <span><%=u.getRole()%></span>
 					</div>
 					<a href="orderHistory">📜 Order History</a>

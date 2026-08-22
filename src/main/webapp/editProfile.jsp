@@ -351,6 +351,11 @@
                     </div>
 
                     <div class="form-group full-width">
+                        <label for="phoneNumber"><i class="fa-solid fa-phone"></i> Phone Number</label>
+                        <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" value="<%= user.getPhoneNumber() != null ? user.getPhoneNumber() : "" %>" placeholder="Enter your phone number">
+                    </div>
+
+                    <div class="form-group full-width">
                         <label for="address"><i class="fa-solid fa-location-dot"></i> Delivery Address</label>
                         <input type="text" id="address" name="address" class="form-control" value="<%= user.getAddress() != null ? user.getAddress() : "" %>" placeholder="Enter your full address">
                     </div>
