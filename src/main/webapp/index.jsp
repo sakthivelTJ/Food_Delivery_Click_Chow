@@ -305,7 +305,7 @@
 		<!-- Background Loop Video -->
 		<video autoplay loop muted playsinline class="hero-bg-video">
 			<source
-				src="D:\Advance_Java\Wokspace\JEEProject1\src\main\webapp\assets\bg_video.mp4"
+				src="https://b.zmtcdn.com/data/file_assets/2627bbed9d6c068e50d2aadcca11ddbb1743095925.mp4"
 				type="video/mp4">
 			Your browser does not support the video tag.
 		</video>
