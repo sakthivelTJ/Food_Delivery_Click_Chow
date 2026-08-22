@@ -386,6 +386,7 @@
 				</div>
 			</div>
 		</div>
+	<div class="mb-6 flex animate-bounce cursor-pointer items-center 2xl:my-8"><div class="text-sm text-white xl:text-base 2xl:text-lg">Scroll down<span class="z-icon ml-2 text-white" style="font-family:Wasabi;--unicode:'\E8DD'"></span></div></div>
 	</section>
 
 	<!-- Info / Flexbox Features Section -->
